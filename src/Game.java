@@ -88,6 +88,8 @@ public class Game {
 		return false;
 	}
 	public void gameUpdate() {
-		
+		if(timer() % 100 == 0) {
+			
+		}
 	}
 }
