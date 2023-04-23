@@ -51,4 +51,10 @@ public class JTetrimino extends Tetrimino {
 		
 	}
 
+	@Override
+	public boolean checkDefaultPosition() {
+		// TODO Auto-generated method stub
+		return yPosition == 1;
+	}
+
 }

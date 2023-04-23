@@ -34,4 +34,5 @@ public abstract class Tetrimino {
 	public abstract boolean checkRight();
 	public abstract boolean checkLeft();
 	public abstract boolean checkBelow();
+	public abstract boolean checkDefaultPosition();
 }

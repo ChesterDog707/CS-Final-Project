@@ -51,4 +51,10 @@ public class ZTetrimino extends Tetrimino{
 		
 	}
 
+	@Override
+	public boolean checkDefaultPosition() {
+		// TODO Auto-generated method stub
+		return yPosition == 0;
+	}
+
 }

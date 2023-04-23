@@ -50,6 +50,12 @@ public class TTetrimino extends Tetrimino {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public boolean checkDefaultPosition() {
+		// TODO Auto-generated method stub
+		return yPosition == 1;
+	}
 	
 	}
 
