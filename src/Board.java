@@ -12,4 +12,11 @@ public class Board {
 	public void drawBoard(Graphics g) {
 		
 	}
+	public void clearLines() {
+		
+	}
+	public int checkForLines() {
+		int output = 0;
+		return output;
+	}
 }
