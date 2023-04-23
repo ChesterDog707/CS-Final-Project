@@ -1,4 +1,15 @@
+import java.awt.Graphics;
 
 public class Board {
 	int[][] board = new int[10][20];
+	
+	public Board() {
+		for(int i = 0; i < 10; i++) 
+			for(int j = 0; j < 20; j ++)
+				board[i][j] = 0;
+	}
+	
+	public void drawBoard(Graphics g) {
+		
+	}
 }
