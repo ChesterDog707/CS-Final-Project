@@ -9,7 +9,7 @@ public class TTetrimino extends Tetrimino {
 	}
 
 	@Override
-	public void rotate(int direction) {
+	public void rotate() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -21,7 +21,13 @@ public class TTetrimino extends Tetrimino {
 	}
 
 	@Override
-	public void delete(Board board) {
+	protected void delete(Board board) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void move(int x, int y) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -34,29 +40,34 @@ public class TTetrimino extends Tetrimino {
 	}
 
 	@Override
-	public boolean checkRight() {
+	public boolean checkRight(int spaces) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean checkLeft() {
+	public boolean checkLeft(int spaces) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean checkBelow() {
+	public boolean checkUp(int spaces) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean checkDefaultPosition() {
+	public boolean checkBelow(int spaces) {
 		// TODO Auto-generated method stub
-		return yPosition == 1;
+		return false;
+	}
+
+	@Override
+	public boolean checkTop() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
-	}
 
 }

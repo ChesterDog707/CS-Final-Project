@@ -83,7 +83,7 @@ public class Game {
 	}
 	public boolean checkGameOver() {
 		for (int i = 0; i < 10; i++) 
-			if(screen.getBoard()[0][i] != 0 && !currentPiece.checkDefaultPosition())
+			if(screen.getBoard()[0][i] != 0 && !currentPiece.checkTop())
 				return true;
 		return false;
 	}
