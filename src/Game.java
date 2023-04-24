@@ -59,25 +59,25 @@ public class Game {
 		int x = (int)(Math.random() * 7);
 		switch(x) {
 		case 0:
-			currentPiece = new ITetrimino();
+			currentPiece = new ITetrimino(screen.getBoard());
 			return;
 		case 1:
-			currentPiece = new JTetrimino();
+			currentPiece = new JTetrimino(screen.getBoard());
 			return;
 		case 2:
-			currentPiece = new LTetrimino();
+			currentPiece = new LTetrimino(screen.getBoard());
 			return;
 		case 3:
-			currentPiece = new OTetrimino();
+			currentPiece = new OTetrimino(screen.getBoard());
 			return;
 		case 4:
-			currentPiece = new STetrimino();
+			currentPiece = new STetrimino(screen.getBoard());
 			return;
 		case 5:
-			currentPiece = new TTetrimino();
+			currentPiece = new TTetrimino(screen.getBoard());
 			return;
 		case 6:
-			currentPiece = new ZTetrimino();
+			currentPiece = new ZTetrimino(screen.getBoard());
 			return;
 		}
 	}

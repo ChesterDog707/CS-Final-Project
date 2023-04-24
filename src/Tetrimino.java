@@ -5,8 +5,10 @@ public abstract class Tetrimino {
 	protected int yPosition;
 	protected int numberValue;
 	protected boolean placed = false;
+	protected int[][] board;
 	
-	public Tetrimino() {
+	public Tetrimino(int[][] board) {
+		this.board = board;
 		orientation = 1;
 	}
 	public int getOrientation() {
@@ -28,13 +30,10 @@ public abstract class Tetrimino {
 		this.yPosition = yPosition;
 	}
 	public abstract void rotate();
-	public abstract void place(Board board);
-	protected abstract void delete(Board board);
-	public abstract void move(int x, int y);
+	public abstract void place();
+	protected abstract void delete();
+	public abstract void move(int changeX, int changeY);
 	public abstract void resetPosition();
-	public abstract boolean checkRight(int spaces);
-	public abstract boolean checkLeft(int spaces);
-	public abstract boolean checkUp(int spaces);
-	public abstract boolean checkBelow(int spaces);
+	protected abstract boolean checkPlacement(int changeX, int changeY, int changeOrientation);
 	public abstract boolean checkTop();
 }

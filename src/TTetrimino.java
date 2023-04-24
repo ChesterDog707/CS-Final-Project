@@ -1,8 +1,8 @@
 
 public class TTetrimino extends Tetrimino {
 
-	public TTetrimino() {
-		super();
+	public TTetrimino(int[][] board) {
+		super(board);
 		xPosition = 3;
 		yPosition = 1;
 		numberValue = 6;
@@ -15,19 +15,19 @@ public class TTetrimino extends Tetrimino {
 	}
 
 	@Override
-	public void place(Board board) {
+	public void place() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	protected void delete(Board board) {
+	protected void delete() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void move(int x, int y) {
+	public void move(int changeX, int changeY) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -40,25 +40,7 @@ public class TTetrimino extends Tetrimino {
 	}
 
 	@Override
-	public boolean checkRight(int spaces) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean checkLeft(int spaces) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean checkUp(int spaces) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean checkBelow(int spaces) {
+	protected boolean checkPlacement(int changeX, int changeY, int changeOrientation) {
 		// TODO Auto-generated method stub
 		return false;
 	}
