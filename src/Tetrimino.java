@@ -30,10 +30,17 @@ public abstract class Tetrimino {
 		this.yPosition = yPosition;
 	}
 	public abstract void rotate();
-	public abstract void place();
-	protected abstract void delete();
-	public abstract void move(int changeX, int changeY);
+	public abstract boolean placeOrDelete(boolean place);
 	public abstract void resetPosition();
 	protected abstract boolean checkPlacement(int changeX, int changeY, int changeOrientation);
 	public abstract boolean checkTop();
+	public void move(int changeX, int changeY) {
+		// TODO Auto-generated method stub
+		placeOrDelete(false);
+		if(checkPlacement(xPosition + changeX, yPosition + changeY, orientation)) {
+			xPosition += changeX;
+			yPosition += changeY;
+		}
+		placeOrDelete(true);	
+	}
 }
