@@ -15,28 +15,16 @@ public class STetrimino extends Tetrimino {
 	}
 
 	@Override
-	public void place() {
+	public boolean placeOrDelete(boolean place) {
 		// TODO Auto-generated method stub
-		
+		return false;
 	}
-
-	@Override
-	protected void delete() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void move(int changeX, int changeY) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	@Override
 	public void resetPosition() {
 		// TODO Auto-generated method stub
 		xPosition = 3;
 		yPosition = 1;
+		orientation = 1;
 	}
 
 	@Override
@@ -48,7 +36,7 @@ public class STetrimino extends Tetrimino {
 	@Override
 	public boolean checkTop() {
 		// TODO Auto-generated method stub
-		return false;
+		return yPosition == 1;
 	}
 	
 }

@@ -81,6 +81,9 @@ public class Game {
 			return;
 		}
 	}
+	public boolean checkPlaced() {
+		return !currentPiece.checkPlacement(currentPiece.xPosition, currentPiece.yPosition + 1, currentPiece.orientation);
+	}
 	public boolean checkGameOver() {
 		for (int i = 0; i < 10; i++) 
 			if(screen.getBoard()[0][i] != 0 && !currentPiece.checkTop())
@@ -88,8 +91,6 @@ public class Game {
 		return false;
 	}
 	public void gameUpdate() {
-		if(timer() % 100 == 0) {
-			
-		}
+		
 	}
 }

@@ -11,7 +11,7 @@ public class ITetrimino extends Tetrimino {
 	@Override
 	public void rotate() {
 		// TODO Auto-generated method stub
-		delete();
+		placeOrDelete(false);
 		switch(orientation) {
 		case 1:
 			if(checkPlacement(xPosition + 2, yPosition - 1, 2)) {
@@ -42,57 +42,33 @@ public class ITetrimino extends Tetrimino {
 			}
 			break;
 		}
-		place();
+		placeOrDelete(true);
 		return;
 	}
 
 	@Override
-	public void place() {
+	public boolean placeOrDelete(boolean place) {
 		// TODO Auto-generated method stub
+		int num;
+		if(place)
+			num = numberValue;
+		else
+			num = 0;
 		if(checkPlacement(xPosition, yPosition, orientation)) {
 			switch(orientation) {
 			case 1:
 			case 3:
 				for(int i = xPosition; i < xPosition + 4; i ++)
-					board[i][yPosition] = numberValue;
-				break;
+					board[i][yPosition] = num;
+				return true;
 			case 2:
 			case 4:
 				for(int i = yPosition; i > yPosition - 4; i--)
-					board[xPosition][yPosition] = numberValue;
-				break;
+					board[xPosition][yPosition] = num;
+				return true;
 			}
 		}
-		return;
-	}
-
-	@Override
-	protected void delete() {
-		// TODO Auto-generated method stub
-		switch(orientation) {
-		case 1:
-		case 3:
-			for(int i = xPosition; i < xPosition + 4; i ++)
-				board[i][yPosition] = numberValue;
-			break;
-		case 2:
-		case 4:
-			for(int i = yPosition; i > yPosition - 4; i--)
-				board[xPosition][yPosition] = numberValue;
-			break;
-		}
-		return;
-	}
-
-	@Override
-	public void move(int changeX, int changeY) {
-		// TODO Auto-generated method stub
-		delete();
-		if(checkPlacement(xPosition + changeX, yPosition + changeY, orientation)) {
-			xPosition += changeX;
-			yPosition += changeY;
-		}
-		place();	
+		return false;
 	}
 
 	@Override
@@ -100,6 +76,7 @@ public class ITetrimino extends Tetrimino {
 		// TODO Auto-generated method stub
 		xPosition = 3;
 		yPosition = 0;
+		orientation = 1;
 	}
 	
 	@Override
@@ -114,21 +91,23 @@ public class ITetrimino extends Tetrimino {
 		switch(changeOrientation) {
 		case 1:
 		case 3:
-			for(int i = changeX; i < changeX + 4; i++)
+			for(int i = changeX; i < changeX + 4; i++) {
 				if(i >= board[0].length)
-					if(board[i][changeY] != 0)
-						return false;
+					return false;
+				if(board[i][changeY] != 0)
+					return false;
+			}
 			break;
 		case 2:
 		case 4:
-			for(int i = changeY; i > changeY - 4; i--)
-				if(i <= 0)
-					if(board[changeX][i] != 0)
-						return false;
+			for(int i = changeY; i > changeY - 4; i--) {
+				if(i < 0)
+					return false;
+				if(board[changeX][i] != 0)
+					return false;
+			}
 			break;
 		}
 		return true;
 	}
-	
-
 }
