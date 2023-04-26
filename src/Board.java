@@ -1,8 +1,9 @@
+import java.awt.Color;
 import java.awt.Graphics;
 
 public class Board {
 	int[][] board = new int[10][20];
-	int[] colors = new int[7];
+	final static Color[] colors = {new Color(61, 255, 236), new Color(15, 4, 222), new Color(240, 141, 12), new Color(255, 247, 0), new Color(11, 227, 0), new Color(219, 0, 235), new Color(235, 0, 0)};
 	
 	
 	public int[][] getBoard() {
