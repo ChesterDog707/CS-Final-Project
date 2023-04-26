@@ -2,6 +2,7 @@ import java.awt.Graphics;
 
 public class Board {
 	int[][] board = new int[10][20];
+	int[] colors = new int[7];
 	
 	
 	public int[][] getBoard() {
