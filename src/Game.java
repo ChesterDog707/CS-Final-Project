@@ -6,6 +6,8 @@ public class Game {
 	private Board screen;
 	private final long STARTTIME = System.currentTimeMillis();
 	private int score;
+	private int totalLinesCleared;
+	private static final double MILLPERFRAME = 16.639267339780494785253615712793;
 	
 	public Game() {
 		currentPiece = null;
@@ -92,5 +94,14 @@ public class Game {
 	}
 	public void gameUpdate() {
 		
+	}
+	public double getDropTime() {
+		int level = totalLinesCleared / 10;
+		switch(level) {
+		case 0:
+			return 48 * MILLPERFRAME;
+		case 1:
+			return
+		}
 	}
 }
