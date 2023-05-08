@@ -11,7 +11,9 @@ public class JTetrimino extends Tetrimino {
 	@Override
 	public void rotate() {
 		// TODO Auto-generated method stub
-		
+		switch(orientation) {
+		case 1:
+		}
 	}
 
 	@Override
