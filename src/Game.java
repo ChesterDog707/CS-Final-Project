@@ -1,10 +1,14 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.Timer;
 
 public class Game {
 
 	private Tetrimino currentPiece;
 	private Tetrimino heldPiece;
 	private Board screen;
-	private final long STARTTIME = System.currentTimeMillis();
+	int tick;
 	private int score;
 	private int totalLinesCleared;
 	private static final double MILLPERFRAME = 16.639267339780494785253615712793;
@@ -14,6 +18,7 @@ public class Game {
 		heldPiece = null;
 		screen = new Board();
 		score = 0;
+		Timer timer = new Timer(tick, new Timey());
 	}
 	 
 	public Tetrimino getCurrentPiece() {
@@ -101,7 +106,13 @@ public class Game {
 		case 0:
 			return 48 * MILLPERFRAME;
 		case 1:
-			return
+			return;
+		}
+	}
+	
+	private class Timey implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			
 		}
 	}
 }

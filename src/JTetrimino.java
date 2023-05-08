@@ -33,7 +33,18 @@ public class JTetrimino extends Tetrimino {
 	@Override
 	protected boolean checkPlacement(int changeX, int changeY, int changeOrientation) {
 		// TODO Auto-generated method stub
-		return false;
+		switch(orientation) {
+		case 1:
+			if(changeX == 0 || changeY == 0)
+				return false;
+			if(changeX < 0 || changeX >= board.length || changeY < 
+		case 2:
+			
+		case 3:
+			
+		case 4:
+			
+		}
 	}
 
 	@Override
