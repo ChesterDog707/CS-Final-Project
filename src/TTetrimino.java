@@ -36,7 +36,7 @@ public class TTetrimino extends Tetrimino {
 		case 4:
 			if(checkPlacement(xPosition - 1, yPosition - 1, 1)) {
 				xPosition --;
-				yPosition ++;
+				yPosition --;
 				orientation -= 3;
 			}
 			break;

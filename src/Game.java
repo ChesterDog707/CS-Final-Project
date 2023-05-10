@@ -39,10 +39,7 @@ public class Game {
 	public void setScreen(Board screen) {
 		this.screen = screen;
 	}
-	
-	public int timer() {
-		return (int) (System.currentTimeMillis() - STARTTIME);
-	}
+
 	
 	public void holdPiece() {
 		if(heldPiece == null) {
@@ -99,15 +96,6 @@ public class Game {
 	}
 	public void gameUpdate() {
 		
-	}
-	public double getDropTime() {
-		int level = totalLinesCleared / 10;
-		switch(level) {
-		case 0:
-			return 48 * MILLPERFRAME;
-		case 1:
-			return;
-		}
 	}
 	
 	private class Timey implements ActionListener {

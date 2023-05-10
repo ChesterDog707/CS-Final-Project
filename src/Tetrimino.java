@@ -11,24 +11,6 @@ public abstract class Tetrimino {
 		this.board = board;
 		orientation = 1;
 	}
-	public int getOrientation() {
-		return orientation;
-	}
-	public void setOrientation(int orientation) {
-		this.orientation = orientation;
-	}
-	public int getXPosition() {
-		return xPosition;
-	}
-	public void setXPosition(int xPosition) {
-		this.xPosition = xPosition;
-	}
-	public int getYPosition() {
-		return yPosition;
-	}
-	public void setYPosition(int yPosition) {
-		this.yPosition = yPosition;
-	}
 	public abstract void rotate();
 	public abstract boolean placeOrDelete(boolean place);
 	public abstract void resetPosition();
