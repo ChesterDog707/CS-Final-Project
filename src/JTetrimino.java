@@ -118,9 +118,9 @@ public class JTetrimino extends Tetrimino {
 			if(board[changeX][changeY] !=0)
 				return false;
 			for(int i = changeX; i > changeX - 3; i--) {
-				if(changeX < 0)
+				if(i < 0)
 					return false;
-				if(board[changeX][changeY - 1] != 0) 
+				if(board[i][changeY - 1] != 0) 
 					return false;
 			}
 			break;
@@ -130,7 +130,7 @@ public class JTetrimino extends Tetrimino {
 			if(board[changeX][changeY] != 0)
 				return false;
 			for(int i = changeY; i > changeY - 3; i--) {
-				if(changeY < 0)
+				if(i < 0)
 					return false;
 				if(board[changeX + 1][i] != 0)
 					return false;
