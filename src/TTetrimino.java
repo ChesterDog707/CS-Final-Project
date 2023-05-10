@@ -15,13 +15,13 @@ public class TTetrimino extends Tetrimino {
 		case 1:
 			if(checkPlacement(xPosition + 1, yPosition - 1, 2)) {
 				xPosition ++;
-				yPosition ++;
+				yPosition --;
 				orientation ++;
 			}
 			break;
 		case 2:
 			if(checkPlacement(xPosition + 1, yPosition + 1, 3)) {
-				xPosition += 2;
+				xPosition ++;
 				yPosition ++;
 				orientation ++;
 			}
