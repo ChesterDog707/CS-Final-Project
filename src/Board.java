@@ -3,9 +3,7 @@ import java.awt.Graphics;
 
 public class Board {
 	int[][] board = new int[10][20];
-	final static Color[] colors = {new Color(61, 255, 236), new Color(15, 4, 222), new Color(240, 141, 12), new Color(255, 247, 0), new Color(11, 227, 0), new Color(219, 0, 235), new Color(235, 0, 0)};
-	//test comment
-	//maxs test comment
+	final static Color[] colors = {Color.white, new Color(61, 255, 236), new Color(15, 4, 222), new Color(240, 141, 12), new Color(255, 247, 0), new Color(11, 227, 0), new Color(219, 0, 235), new Color(235, 0, 0)};
 	
 	public int[][] getBoard() {
 		return board;
@@ -21,13 +19,35 @@ public class Board {
 	}
 	
 	public void drawBoard(Graphics g) {
-		
+		for(int r = 0; r < board.length * 10; r += 10) {
+			for(int c = 0; c < board[0].length * 10; c += 10) {
+				g.setColor(colors[board[r][c]]);
+				g.fillRect(c * 10, r * 10, 10, 10);
+			}
+		}
 	}
 	public int clearLines() {
-
+		int lineCount = 0;
+		int r = -1;
+		for(int[] row : board) {
+			r++;
+			for(int i : row) {
+				if(i == 0)
+					break;
+			}
+			lineCount ++;
+			deleteRow(r);
+		}
+		return lineCount;
 	}
-	public int checkForLines() {
-		int output = 0;
-		return output;
+	private void deleteRow(int r) {
+		for(int c = 0; c < board[r].length; c++)
+			board[r][c] = 0;
+		for(int row = r; row > 0; row --)
+			for(int col = 0; col < board[row].length; col ++) 
+				board[row][col] = board[row - 1][col];
+		for(int col = 0; col < board[0].length; col ++)
+			board[0][col] = 0;
+		return;
 	}
 }

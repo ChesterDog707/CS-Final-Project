@@ -1,5 +1,10 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.Timer;
 
@@ -10,14 +15,16 @@ public class Game {
 	private Board screen;
 	int tick;
 	private int score;
+	private int level;
 	private int totalLinesCleared;
-	private static final double MILLPERFRAME = 16.639267339780494785253615712793;
+	private static final double[] tickAtLevel  = {798.7, 715.5, 632.3, 549.1, 465.9, 382.7, 299.5, 216.3, 133.1, 99.8, 83.2, 83.2, 83.2, 66.6, 66.6, 66.6, 49.9, 49.9, 49.9, 33.3, 33.3, 33.3, 33.3, 33.3, 33.3, 33.3, 33.3, 33.3, 33.3, 16.4};
 	
 	public Game() {
 		currentPiece = null;
 		heldPiece = null;
 		screen = new Board();
 		score = 0;
+		level = 0;
 		Timer timer = new Timer(tick, new Timey());
 	}
 	 
@@ -94,13 +101,74 @@ public class Game {
 				return true;
 		return false;
 	}
-	public void gameUpdate() {
+	public void updateScore() {
+		// TODO Auto-generated method stub
 		
 	}
-	
+		
 	private class Timey implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			if(!checkGameOver() && !currentPiece.move(currentPiece.getXPosition(), currentPiece.getYPosition() + 1)) {
+				totalLinesCleared += screen.clearLines();
+				if(totalLinesCleared % 10 > level)
+					level ++;
+				updateScore();
+				generateNewCurrentPiece();
+			}
+		}
+	}
+	private class key implements KeyListener {
+
+		@Override
+		public void keyTyped(KeyEvent e) {
+			// TODO Auto-generated method stub
 			
 		}
+
+		@Override
+		public void keyPressed(KeyEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void keyReleased(KeyEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
+	private class click implements MouseListener {
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
 	}
 }
