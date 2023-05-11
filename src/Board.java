@@ -19,10 +19,10 @@ public class Board {
 	}
 	
 	public void drawBoard(Graphics g) {
-		for(int r = 0; r < board.length * 10; r += 10) {
-			for(int c = 0; c < board[0].length * 10; c += 10) {
+		for(int r = 0; r < board.length; r ++) {
+			for(int c = 0; c < board[0].length; c ++) {
 				g.setColor(colors[board[r][c]]);
-				g.fillRect(c * 10, r * 10, 10, 10);
+				g.fillRect(c * 20, r * 20, 20, 20);
 			}
 		}
 	}

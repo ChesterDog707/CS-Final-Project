@@ -12,7 +12,7 @@ public class Game {
 
 	private Tetrimino currentPiece;
 	private Tetrimino heldPiece;
-	private Board screen;
+	private Board board;
 	int tick;
 	private int score;
 	private int level;
@@ -22,10 +22,11 @@ public class Game {
 	public Game() {
 		currentPiece = null;
 		heldPiece = null;
-		screen = new Board();
+		board = new Board();
 		score = 0;
 		level = 0;
 		Timer timer = new Timer(tick, new Timey());
+		KeyListener keyboard = new key();
 	}
 	 
 	public Tetrimino getCurrentPiece() {
@@ -40,11 +41,11 @@ public class Game {
 	public void setHeldPiece(Tetrimino heldPiece) {
 		this.heldPiece = heldPiece;
 	}
-	public Board getScreen() {
-		return screen;
+	public Board getBoard() {
+		return board;
 	}
-	public void setScreen(Board screen) {
-		this.screen = screen;
+	public void setboard(Board board) {
+		this.board = board;
 	}
 
 	
@@ -67,29 +68,30 @@ public class Game {
 	}
 	
 	public void generateNewCurrentPiece() {
-		int x = (int)(Math.random() * 7);
+		//int x = (int)(Math.random() * 7);
+		int x = (int)(Math.random() * 3);
 		switch(x) {
 		case 0:
-			currentPiece = new ITetrimino(screen.getBoard());
+			currentPiece = new ITetrimino(board.getBoard());
 			return;
 		case 1:
-			currentPiece = new JTetrimino(screen.getBoard());
+			currentPiece = new JTetrimino(board.getBoard());
 			return;
 		case 2:
-			currentPiece = new LTetrimino(screen.getBoard());
+			//currentPiece = new LTetrimino(board.getBoard());
+			//return;
+		//case 3:
+			//currentPiece = new OTetrimino(board.getBoard());
+			//return;
+		//case 4:
+			//currentPiece = new STetrimino(board.getBoard());
+			//return;
+		//case 5:
+			currentPiece = new TTetrimino(board.getBoard());
 			return;
-		case 3:
-			currentPiece = new OTetrimino(screen.getBoard());
-			return;
-		case 4:
-			currentPiece = new STetrimino(screen.getBoard());
-			return;
-		case 5:
-			currentPiece = new TTetrimino(screen.getBoard());
-			return;
-		case 6:
-			currentPiece = new ZTetrimino(screen.getBoard());
-			return;
+		//case 6:
+			//currentPiece = new ZTetrimino(board.getBoard());
+			//return;
 		}
 	}
 	public boolean checkPlaced() {
@@ -97,7 +99,7 @@ public class Game {
 	}
 	public boolean checkGameOver() {
 		for (int i = 0; i < 10; i++) 
-			if(screen.getBoard()[0][i] != 0 && !currentPiece.checkTop())
+			if(board.getBoard()[0][i] != 0 && !currentPiece.checkTop())
 				return true;
 		return false;
 	}
@@ -108,8 +110,8 @@ public class Game {
 		
 	private class Timey implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			if(!checkGameOver() && !currentPiece.move(currentPiece.getXPosition(), currentPiece.getYPosition() + 1)) {
-				totalLinesCleared += screen.clearLines();
+			if(!checkGameOver() && !currentPiece.move(0, 1)) {
+				totalLinesCleared += board.clearLines();
 				if(totalLinesCleared % 10 > level)
 					level ++;
 				updateScore();
@@ -122,7 +124,15 @@ public class Game {
 		@Override
 		public void keyTyped(KeyEvent e) {
 			// TODO Auto-generated method stub
-			
+			int type = e.getKeyCode();
+			if(type == KeyEvent.VK_H)
+				holdPiece();
+			else if(type == KeyEvent.VK_UP)
+				currentPiece.rotate();
+			else if(type == KeyEvent.VK_LEFT) 
+				currentPiece.move(-1, 0);
+			else if(type == KeyEvent.VK_RIGHT)
+				currentPiece.move(1,  0);
 		}
 
 		@Override
