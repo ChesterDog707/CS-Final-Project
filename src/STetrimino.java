@@ -106,7 +106,7 @@ public class STetrimino extends Tetrimino {
 			if(board[changeY-1][changeX+2]>0)
 				return false;      //checking if there are already blocks in this spot
 			
-			if(changeX+2>board[0].length)   //checking too far right
+			if(changeX+2>=board[0].length)   //checking too far right
 				return false;
 			if(changeX<0)   //checking left
 				return false;
@@ -127,7 +127,7 @@ public class STetrimino extends Tetrimino {
 			if(board[changeY+2][changeX+1]>0)
 				return false;      //checking if there are already blocks in this spot
 			
-			if(changeX+1>board[0].length)   //checking too far right
+			if(changeX+1>=board[0].length)   //checking too far right
 				return false;
 			if(changeX<0)   //checking left
 				return false;
