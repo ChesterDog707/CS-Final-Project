@@ -94,7 +94,7 @@ public class TTetrimino extends Tetrimino {
 		switch(orientation) {
 		case 1:
 			for(int i = changeX; i < changeX + 3; i++) {
-				if(i >= board[0].length) 
+				if(i >= board[0].length || changeY >= board.length) 
 					return false;
 				if(board[i][changeY] != 0)
 					return false;
