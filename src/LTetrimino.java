@@ -52,31 +52,32 @@ public class LTetrimino extends Tetrimino {
 		if(checkPlacement(xPosition, yPosition, orientation)) {
 			switch(orientation) {
 			case 1:
-				board[xPosition][yPosition] = num;
+				board[yPosition][xPosition] = num;
 				for(int i = xPosition; i > xPosition - 3; i--) {
-					board[i][yPosition + 1] = num;
+					board[yPosition + 1][i] = num;
 				}
-				break;
+				return true;
 			case 2:
-				board[xPosition][yPosition] = num;
+				board[yPosition][xPosition] = num;
 				for(int i = yPosition; i > yPosition - 3; i--) {
-					board[xPosition - 1][i] = num;
+					board[i][xPosition - 1] = num;
 				}
-				break;
+				return true;
 			case 3:
-				board[xPosition][yPosition] = num;
+				board[yPosition][xPosition] = num;
 				for(int i = xPosition; i < xPosition + 3; i++) {
-					board[i][yPosition - 1] = num;
+					board[yPosition - 1][i] = num;
 				}
-				break;
+				return true;
 			case 4:
-				board[xPosition][yPosition] = num;
+				board[yPosition][xPosition] = num;
 				for(int i = yPosition; i < yPosition + 3; i++) {
-					board[xPosition + 1][i] = num;
+					board[i][xPosition + 1] = num;
 				}
-				break;
+				return true;
 			}
 		}
+		return false;
 			
 	}
 
@@ -93,50 +94,50 @@ public class LTetrimino extends Tetrimino {
 		// TODO Auto-generated method stub
 		switch(orientation) {
 		case 1:
-			if(changeX >= board[0].length || changeY <= 0 || changeY + 1 > board.length)
+			if(changeX >= board[0].length || changeY <= 0 || changeY + 1 >= board.length)
 				return false;
-			if(board[changeX][changeY] != 0)
+			if(board[changeY][changeX] != 0)
 				return false;
 			for(int i = changeX; i > changeX - 3; i--) {
 				if(i < 0)
 					return false;
-				if(board[i][changeY + 1] != 0) 
+				if(board[changeY + 1][i] != 0) 
 					return false;
 			}
 			break;
 		case 2:
-			if(changeY > board.length || changeX < board[0].length || changeX - 1 < 0)
+			if(changeY >= board.length || changeX < board[0].length || changeX - 1 < 0)
 				return false;
-			if(board[changeX][changeY] != 0)
+			if(board[changeY][changeX] != 0)
 				return false;
 			for(int i = changeY; i > changeY - 3; i--) {
 				if(i < board.length)
 					return false;
-				if(board[changeX - 1][i] != 0)
+				if(board[i][changeX - 1] != 0)
 					return false;
 			}
 			break;
 		case 3:
-			if(changeY > board.length || changeX < 0 || changeY - 1 < 0)
+			if(changeY >= board.length || changeX < 0 || changeY - 1 < 0)
 				return false;
-			if(board[changeX][changeY] !=0)
+			if(board[changeY][changeX] !=0)
 				return false;
 			for(int i = changeX; i < changeX + 3; i++) {
-				if(changeX > board[0].length)
+				if(changeX >= board[0].length)
 					return false;
-				if(board[i][changeY - 1] != 0) 
+				if(board[changeY - 1][i] != 0) 
 					return false;
 			}
 			break;
 		case 4:
-			if(changeX < 0 || changeY < 0 || changeX + 1 > board[0].length)
+			if(changeX < 0 || changeY < 0 || changeX + 1 >= board[0].length)
 				return false;
-			if(board[changeX][changeY] != 0)
+			if(board[changeY][changeX] != 0)
 				return false;
 			for(int i = changeY; i < changeY + 3; i++) {
-				if(changeY > board.length)
+				if(changeY >= board.length)
 					return false;
-				if(board[changeX + 1][i] != 0)
+				if(board[i][changeX + 1] != 0)
 					return false;
 			}
 			break;

@@ -92,13 +92,9 @@ public class STetrimino extends Tetrimino {
 		// TODO Auto-generated method stub
 		switch(orientation) {
 		case 1:
-		
-		
-		
-		
-		
-		
+	
 		return false;
+		}
 	}
 
 	@Override

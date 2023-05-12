@@ -13,11 +13,9 @@ public class Game {
 	private Tetrimino currentPiece;
 	private Tetrimino heldPiece;
 	private Board board;
-	int tick;
 	private int score;
 	private int level;
 	private int totalLinesCleared;
-	private static final double[] tickAtLevel  = {798.7, 715.5, 632.3, 549.1, 465.9, 382.7, 299.5, 216.3, 133.1, 99.8, 83.2, 83.2, 83.2, 66.6, 66.6, 66.6, 49.9, 49.9, 49.9, 33.3, 33.3, 33.3, 33.3, 33.3, 33.3, 33.3, 33.3, 33.3, 33.3, 16.4};
 	
 	public Game() {
 		currentPiece = null;
@@ -25,8 +23,7 @@ public class Game {
 		board = new Board();
 		score = 0;
 		level = 0;
-		Timer timer = new Timer(tick, new Timey());
-		KeyListener keyboard = new key();
+		generateNewCurrentPiece();
 	}
 	 
 	public Tetrimino getCurrentPiece() {
@@ -48,7 +45,29 @@ public class Game {
 		this.board = board;
 	}
 
-	
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
+	public int getTotalLinesCleared() {
+		return totalLinesCleared;
+	}
+
+	public void setTotalLinesCleared(int totalLinesCleared) {
+		this.totalLinesCleared = totalLinesCleared;
+	}
 	public void holdPiece() {
 		if(heldPiece == null) {
 			heldPiece = currentPiece;
@@ -68,31 +87,35 @@ public class Game {
 	}
 	
 	public void generateNewCurrentPiece() {
+		System.out.println("Placing");
 		//int x = (int)(Math.random() * 7);
-		int x = (int)(Math.random() * 3);
+		int x = (int)(Math.random() * 3) + 1;
+		System.out.println(x);
 		switch(x) {
-		case 0:
-			currentPiece = new ITetrimino(board.getBoard());
-			return;
 		case 1:
-			currentPiece = new JTetrimino(board.getBoard());
-			return;
+			currentPiece = new ITetrimino(board.getBoard());
+			break;
 		case 2:
+			currentPiece = new JTetrimino(board.getBoard());
+			break;
+		case 3:
 			//currentPiece = new LTetrimino(board.getBoard());
 			//return;
-		//case 3:
+		//case 4:
 			//currentPiece = new OTetrimino(board.getBoard());
 			//return;
-		//case 4:
+		//case 5:
 			//currentPiece = new STetrimino(board.getBoard());
 			//return;
-		//case 5:
-			currentPiece = new TTetrimino(board.getBoard());
-			return;
 		//case 6:
+			currentPiece = new TTetrimino(board.getBoard());
+			break;
+		//case 7:
 			//currentPiece = new ZTetrimino(board.getBoard());
 			//return;
 		}
+		
+		currentPiece.placeOrDelete(true);
 	}
 	public boolean checkPlaced() {
 		return !currentPiece.checkPlacement(currentPiece.xPosition, currentPiece.yPosition + 1, currentPiece.orientation);
@@ -107,78 +130,5 @@ public class Game {
 		// TODO Auto-generated method stub
 		
 	}
-		
-	private class Timey implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			if(!checkGameOver() && !currentPiece.move(0, 1)) {
-				totalLinesCleared += board.clearLines();
-				if(totalLinesCleared % 10 > level)
-					level ++;
-				updateScore();
-				generateNewCurrentPiece();
-			}
-		}
-	}
-	private class key implements KeyListener {
-
-		@Override
-		public void keyTyped(KeyEvent e) {
-			// TODO Auto-generated method stub
-			int type = e.getKeyCode();
-			if(type == KeyEvent.VK_H)
-				holdPiece();
-			else if(type == KeyEvent.VK_UP)
-				currentPiece.rotate();
-			else if(type == KeyEvent.VK_LEFT) 
-				currentPiece.move(-1, 0);
-			else if(type == KeyEvent.VK_RIGHT)
-				currentPiece.move(1,  0);
-		}
-
-		@Override
-		public void keyPressed(KeyEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void keyReleased(KeyEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-	}
-	private class click implements MouseListener {
-
-		@Override
-		public void mouseClicked(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseEntered(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-	}
+	
 }

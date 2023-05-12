@@ -111,7 +111,7 @@ public class TTetrimino extends Tetrimino {
 				if(board[changeX][i] != 0)
 					return false;
 			}
-			if(changeX + 1 > board[0].length)
+			if(changeX + 1 >= board[0].length)
 				return false;
 			if(board[changeX + 1][changeY + 1] != 0)
 				return false;
@@ -123,7 +123,7 @@ public class TTetrimino extends Tetrimino {
 				if(board[i][changeY] != 0)
 					return false;
 			}
-			if(changeY + 1 > board.length)
+			if(changeY + 1 >= board.length)
 				return false;
 			if(board[changeX - 1][changeY + 1] != 0)
 				return false;

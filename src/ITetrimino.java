@@ -59,12 +59,12 @@ public class ITetrimino extends Tetrimino {
 			case 1:
 			case 3:
 				for(int i = xPosition; i < xPosition + 4; i ++)
-					board[i][yPosition] = num;
+					board[yPosition][i] = num;
 				return true;
 			case 2:
 			case 4:
 				for(int i = yPosition; i > yPosition - 4; i--)
-					board[xPosition][yPosition] = num;
+					board[i][xPosition] = num;
 				return true;
 			}
 		}
@@ -94,7 +94,7 @@ public class ITetrimino extends Tetrimino {
 			for(int i = changeX; i < changeX + 4; i++) {
 				if(i >= board[0].length)
 					return false;
-				if(board[i][changeY] != 0)
+				if(board[changeY][i] != 0)
 					return false;
 			}
 			break;
@@ -103,7 +103,7 @@ public class ITetrimino extends Tetrimino {
 			for(int i = changeY; i > changeY - 4; i--) {
 				if(i < 0)
 					return false;
-				if(board[changeX][i] != 0)
+				if(board[i][changeX] != 0)
 					return false;
 			}
 			break;
