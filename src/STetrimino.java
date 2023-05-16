@@ -47,7 +47,7 @@ public class STetrimino extends Tetrimino {
 	@Override
 	public boolean placeOrDelete(boolean place) {
 		// TODO Auto-generated method stub
-		int num;
+		int num;  // maybe int num needs to be declared here tell nathan
 		if(place)
 			num = numberValue;
 		else 
