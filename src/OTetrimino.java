@@ -45,6 +45,8 @@ public class OTetrimino extends Tetrimino{
 	@Override
 	protected boolean checkPlacement(int changeX, int changeY, int changeOrientation) {
 		// TODO Auto-generated method stub
+		if(changeY + 1 >= board.length || changeX + 1 >= board[0].length)
+			return false;
 		if(board[changeY][changeX]>0)
 			return false;
 		if(board[changeY][changeX+1]>0)

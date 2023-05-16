@@ -30,6 +30,7 @@ public abstract class Tetrimino {
 	public abstract boolean checkTop();
 	public boolean move(int changeX, int changeY) {
 		// TODO Auto-generated method stub
+		placeOrDelete(false);
 		if(checkPlacement(xPosition + changeX, yPosition + changeY, orientation)) {
 			placeOrDelete(false);
 			xPosition += changeX;
@@ -37,6 +38,7 @@ public abstract class Tetrimino {
 			placeOrDelete(true);
 			return true;
 		}
+		placeOrDelete(true);
 		return false;
 	}
 	public void place() {

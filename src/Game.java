@@ -87,10 +87,7 @@ public class Game {
 	}
 	
 	public void generateNewCurrentPiece() {
-		System.out.println("Placing");
-		//int x = (int)(Math.random() * 7);
-		int x = (int)(Math.random() * 3) + 1;
-		System.out.println(x);
+		int x = (int)(Math.random() * 7) + 1;
 		switch(x) {
 		case 1:
 			currentPiece = new ITetrimino(board.getBoard());
@@ -99,26 +96,33 @@ public class Game {
 			currentPiece = new JTetrimino(board.getBoard());
 			break;
 		case 3:
-			//currentPiece = new LTetrimino(board.getBoard());
-			//return;
-		//case 4:
-			//currentPiece = new OTetrimino(board.getBoard());
-			//return;
-		//case 5:
-			//currentPiece = new STetrimino(board.getBoard());
-			//return;
-		//case 6:
+			currentPiece = new LTetrimino(board.getBoard());
+			break;
+		case 4:
+			currentPiece = new OTetrimino(board.getBoard());
+			break;
+		case 5:
+			currentPiece = new STetrimino(board.getBoard());
+			break;
+		case 6:
 			currentPiece = new TTetrimino(board.getBoard());
 			break;
-		//case 7:
-			//currentPiece = new ZTetrimino(board.getBoard());
-			//return;
+		case 7:
+			currentPiece = new ZTetrimino(board.getBoard());
+			break;
 		}
-		
+		System.out.println("placed");
 		currentPiece.placeOrDelete(true);
 	}
 	public boolean checkPlaced() {
+		System.out.println("here3");
 		return !currentPiece.checkPlacement(currentPiece.xPosition, currentPiece.yPosition + 1, currentPiece.orientation);
+	}
+	public void resetPiece() {
+		if(!checkPlaced()) {
+			generateNewCurrentPiece();
+			totalLinesCleared += board.clearLines();
+		}
 	}
 	public boolean checkGameOver() {
 		for (int i = 0; i < 10; i++) 

@@ -4,7 +4,7 @@ public class JTetrimino extends Tetrimino {
 	public JTetrimino(int[][] board) {
 		super(board);
 		xPosition = 3;
-		yPosition = 1;
+		yPosition = 0;
 		numberValue = 2;
 	}
 
