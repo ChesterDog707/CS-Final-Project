@@ -47,7 +47,7 @@ public class STetrimino extends Tetrimino {
 	@Override
 	public boolean placeOrDelete(boolean place) {
 		// TODO Auto-generated method stub
-		int num;
+		int num;  // maybe int num needs to be declared here tell nathan
 		if(place)
 			num = numberValue;
 		else 
@@ -57,18 +57,19 @@ public class STetrimino extends Tetrimino {
 			
 			case 3:
 			case 1:  //filling in the blocks on the 2d array with the "num"; making them into a different color
-				board[xPosition][yPosition] = num;  
-				board[xPosition+1][yPosition] = num;
-				board[xPosition+1][yPosition-1] = num;
-				board[xPosition+2][yPosition-1] = num;
+				board[yPosition][xPosition] = num;  
+				board[yPosition][xPosition+1] = num;
+				board[yPosition-1][xPosition+1] = num;
+				board[yPosition-1][xPosition+2] = num;
 				return true;
-	
+			
 			case 4:
 			case 2:
-				board[xPosition][yPosition] = num;
-				board[xPosition][yPosition+1] = num;
-				board[xPosition+1][yPosition+1] = num;
-				board[xPosition+1][yPosition+2] = num;
+				board[yPosition][xPosition] = num;
+				board[yPosition+1][xPosition] = num;
+				board[yPosition+1][xPosition+1] = num;
+				board[yPosition+2][xPosition+1] = num;
+				return true;
 			}
 		}
 		
@@ -91,10 +92,54 @@ public class STetrimino extends Tetrimino {
 	protected boolean checkPlacement(int changeX, int changeY, int changeOrientation) {
 		// TODO Auto-generated method stub
 		switch(orientation) {
+		
+		
+		
+		case 3:
 		case 1:
-	
-		return false;
+			if(board[changeY][changeX]>0)
+				return false;
+			if(board[changeY][changeX+1]>0)
+				return false;
+			if(board[changeY-1][changeX+1]>0)
+				return false;
+			if(board[changeY-1][changeX+2]>0)
+				return false;      //checking if there are already blocks in this spot
+			
+			if(changeX+2>=board[0].length)   //checking too far right
+				return false;
+			if(changeX<0)   //checking left
+				return false;
+			if(changeY-1<0)  //up
+				return false;
+			if(changeY>=board.length)
+				return false;        //down
+			break;
+			
+		case 4:
+		case 2:
+			if(board[changeY][changeX]>0)
+				return false;
+			if(board[changeY+1][changeX]>0)
+				return false;
+			if(board[changeY+1][changeX+1]>0)
+				return false;
+			if(board[changeY+2][changeX+1]>0)
+				return false;      //checking if there are already blocks in this spot
+			
+			if(changeX+1>=board[0].length)   //checking too far right
+				return false;
+			if(changeX<0)   //checking left
+				return false;
+			if(changeY<0)  //up
+				return false;
+			if(changeY+2>=board.length)
+				return false;        //down
+			break;
+			
 		}
+		return true;
+		
 	}
 
 	@Override
