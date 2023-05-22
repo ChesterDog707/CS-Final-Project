@@ -36,7 +36,9 @@ public abstract class Tetrimino {
 			xPosition += changeX;
 			yPosition += changeY;
 			placeOrDelete(true);
+			System.out.println("MOVING THE PIECE DOWN");  //im tryna see when this is triggered
 			return true;
+		
 		}
 		placeOrDelete(true);
 		return false;
