@@ -89,15 +89,31 @@ public class JTetrimino extends Tetrimino {
 		// TODO Auto-generated method stub
 		switch(orientation) {
 		case 1:
-			if(changeX <= 0 || changeY <= 0 || changeY + 1 >= board.length)
+			if(changeX < 0 || changeY < 0 || changeY + 1 >= board.length) {
+				System.out.println("here6");
+				double x = 0;
+				if(changeX < 0)
+					x = 1.1;
+				else if(changeY < 0)
+					x = 1.2;
+				else if(changeY + 1 >= board.length)
+					x = 1.3;
+				System.out.println(x);
 				return false;
-			if(board[changeY][changeX] != 0)
+			}
+			if(board[changeY][changeX] != 0) {
+				System.out.println(2);
 				return false;
+			}
 			for(int i = changeX; i < changeX + 3; i++) {
-				if(i >= board[0].length)
+				if(i >= board[0].length) {
+					System.out.println(3);
 					return false;
-				if(board[changeY + 1][i] != 0) 
+				}
+				if(board[changeY + 1][i] != 0) { 
+					System.out.println(4);
 					return false;
+				}
 			}
 			break;
 		case 2:

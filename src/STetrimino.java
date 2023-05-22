@@ -52,32 +52,33 @@ public class STetrimino extends Tetrimino {
 			num = numberValue;
 		else 
 			num=0;
-		if(checkPlacement(xPosition, yPosition, orientation)) {
-			switch(orientation) {
-			
-			case 3:
-			case 1:  //filling in the blocks on the 2d array with the "num"; making them into a different color
-				board[yPosition][xPosition] = num;  
-				board[yPosition][xPosition+1] = num;
-				board[yPosition-1][xPosition+1] = num;
-				board[yPosition-1][xPosition+2] = num;
-				return true;
-			
-			case 4:
-			case 2:
-				board[yPosition][xPosition] = num;
-				board[yPosition+1][xPosition] = num;
-				board[yPosition+1][xPosition+1] = num;
-				board[yPosition+2][xPosition+1] = num;
-				return true;
-			}
+		if(num > 0 && checkPlacement(xPosition, yPosition, orientation)) 
+			return place(num);
+		else
+			return place(0);
+				
+	}
+	private boolean place(int num) {
+		switch(orientation) {
+		
+		case 3:
+		case 1:  //filling in the blocks on the 2d array with the "num"; making them into a different color
+			System.out.println("here " + num);
+			board[yPosition][xPosition] = num;  
+			board[yPosition][xPosition+1] = num;
+			board[yPosition-1][xPosition+1] = num;
+			board[yPosition-1][xPosition+2] = num;
+			return true;
+		
+		case 4:
+		case 2:
+			System.out.println("here " + num);
+			board[yPosition][xPosition] = num;
+			board[yPosition+1][xPosition] = num;
+			board[yPosition+1][xPosition+1] = num;
+			board[yPosition+2][xPosition+1] = num;
+			return true;
 		}
-		
-		
-		
-		
-		
-		
 		return false;
 	}
 	@Override
@@ -97,15 +98,6 @@ public class STetrimino extends Tetrimino {
 		
 		case 3:
 		case 1:
-			if(board[changeY][changeX]>0)
-				return false;
-			if(board[changeY][changeX+1]>0)
-				return false;
-			if(board[changeY-1][changeX+1]>0)
-				return false;
-			if(board[changeY-1][changeX+2]>0)
-				return false;      //checking if there are already blocks in this spot
-			
 			if(changeX+2>=board[0].length)   //checking too far right
 				return false;
 			if(changeX<0)   //checking left
@@ -114,10 +106,29 @@ public class STetrimino extends Tetrimino {
 				return false;
 			if(changeY>=board.length)
 				return false;        //down
+			
+			if(board[changeY][changeX]>0)
+				return false;
+			if(board[changeY][changeX+1]>0)
+				return false;
+			if(board[changeY-1][changeX+1]>0)
+				return false;
+			if(board[changeY-1][changeX+2]>0)
+				return false;      //checking if there are already blocks in this spot
+
 			break;
 			
 		case 4:
 		case 2:
+			if(changeX+1>=board[0].length)   //checking too far right
+				return false;
+			if(changeX<0)   //checking left
+				return false;
+			if(changeY<0)  //up
+				return false;
+			if(changeY+2>=board.length)
+				return false;        //down
+			
 			if(board[changeY][changeX]>0)
 				return false;
 			if(board[changeY+1][changeX]>0)
@@ -127,14 +138,6 @@ public class STetrimino extends Tetrimino {
 			if(board[changeY+2][changeX+1]>0)
 				return false;      //checking if there are already blocks in this spot
 			
-			if(changeX+1>=board[0].length)   //checking too far right
-				return false;
-			if(changeX<0)   //checking left
-				return false;
-			if(changeY<0)  //up
-				return false;
-			if(changeY+2>=board.length)
-				return false;        //down
 			break;
 			
 		}

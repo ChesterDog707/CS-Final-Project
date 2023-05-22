@@ -29,8 +29,6 @@ public class Board {
 				//System.out.print(board[r][c] + "  ");
 				g.setColor(Color.black);
 				g.drawRect(c * 20, r * 20, 20, 20);
-				if(board[r][c] != 0)
-					System.out.println("here");
 				g.setColor(colors[board[r][c]]);
 				g.fillRect(c * 20 + 1, r * 20 + 1, 19, 19);
 			}

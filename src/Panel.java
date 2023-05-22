@@ -49,12 +49,9 @@ public class Panel extends JPanel{
 	
 	private class Timey implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			System.out.println(game.getCurrentPiece().move(0, 1));
-			if(!game.checkGameOver() && !game.getCurrentPiece().move(0, 1)) {
-				
-				System.out.println("first");
-				game.getBoard().viewBoard();
-				System.out.println("second");
+			if(!game.checkGameOver()) {
+				game.getCurrentPiece().move(0, -1);
+				//game.getBoard().viewBoard();
 				//game.resetPiece();
 				
 				//game.getBoard().viewBoard();

@@ -87,7 +87,8 @@ public class Game {
 	}
 	
 	public void generateNewCurrentPiece() {
-		int x = (int)(Math.random() * 7) + 1;
+		//int x = (int)(Math.random() * 7) + 1;
+		int x = 2;
 		switch(x) {
 		case 1:
 			currentPiece = new ITetrimino(board.getBoard());
@@ -113,6 +114,12 @@ public class Game {
 		}
 		System.out.println("placed");
 		currentPiece.placeOrDelete(true);
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	public boolean checkPlaced() {
 		System.out.println("here3");
