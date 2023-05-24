@@ -16,7 +16,6 @@ public class Panel extends JPanel{
 	private static final double[] tickAtLevel  = {798.7, 715.5, 632.3, 549.1, 465.9, 382.7, 299.5, 216.3, 133.1, 99.8, 83.2, 83.2, 83.2, 66.6, 66.6, 66.6, 49.9, 49.9, 49.9, 33.3, 33.3, 33.3, 33.3, 33.3, 33.3, 33.3, 33.3, 33.3, 33.3, 16.4};
 	
 	public Panel(Game game) {
-		System.out.println("THE GAME CLASS IS BEING MADE HERE"); /// seeing where game is made
 		this.game = game;
 		updateTick();
 		System.out.println("tick"+tick);
@@ -50,13 +49,9 @@ public class Panel extends JPanel{
 	
 	private class Timey implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			System.out.println(game.getCurrentPiece().move(0, 1));
-			System.out.println("is this where it prints false");
-			if(!game.checkGameOver() && !game.getCurrentPiece().move(0, 1)) {
-				
-				System.out.println("first");
-				game.getBoard().viewBoard();
-				System.out.println("second");
+			if(!game.checkGameOver()) {
+				game.getCurrentPiece().move(0, -1);
+				//game.getBoard().viewBoard();
 				//game.resetPiece();
 				
 				//game.getBoard().viewBoard();
