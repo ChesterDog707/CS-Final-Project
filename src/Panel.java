@@ -21,6 +21,7 @@ public class Panel extends JPanel{
 		Timer timer = new Timer((int)tick, new Timey());
 		timer.start();
 		addKeyListener(new key());
+		setFocusable(true);
 	}
 	
 	public Board getBoard() {
@@ -51,15 +52,10 @@ public class Panel extends JPanel{
 			if(!game.checkGameOver()) {
 				game.getCurrentPiece().move(0, 1);
 				game.resetPiece();
-				//game.getBoard().viewBoard();
-				//game.resetPiece();
-				
-				//game.getBoard().viewBoard();
 				if(game.getTotalLinesCleared() % 10 > game.getLevel())
 					game.setLevel(game.getLevel() + 1);
 				game.updateScore();
 				repaint();
-				//game.generateNewCurrentPiece();
 			}
 		}
 	}

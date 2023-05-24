@@ -14,17 +14,17 @@ public class ITetrimino extends Tetrimino {
 		placeOrDelete(false);
 		switch(orientation) {
 		case 1:
-			if(checkPlacement(xPosition + 2, yPosition - 1, 2)) {
+			if(checkPlacement(xPosition + 2, yPosition + 2, 2)) {
 				orientation = 2;
 				xPosition += 2;
-				yPosition += 1;
+				yPosition += 2;
 			}
 			break;
 		case 2:
-			if(checkPlacement(xPosition - 2, yPosition - 2, 3)) {
+			if(checkPlacement(xPosition - 2, yPosition - 1, 3)) {
 				orientation = 3;
 				xPosition -= 2;
-				yPosition -= 2;
+				yPosition -= 1;
 			}
 			break;
 		case 3:
@@ -37,8 +37,8 @@ public class ITetrimino extends Tetrimino {
 		case 4:
 			if(checkPlacement(xPosition - 1, yPosition - 2, 1)) {
 				orientation = 1;
-				xPosition += 1;
-				yPosition += 1;
+				xPosition -= 1;
+				yPosition -= 2;
 			}
 			break;
 		}
@@ -101,7 +101,7 @@ public class ITetrimino extends Tetrimino {
 		case 2:
 		case 4:
 			for(int i = changeY; i > changeY - 4; i--) {
-				if(i < 0)
+				if(i < 0 || i >= board.length)
 					return false;
 				if(board[i][changeX] != 0)
 					return false;

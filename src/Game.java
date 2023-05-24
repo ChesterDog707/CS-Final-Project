@@ -88,7 +88,7 @@ public class Game {
 	
 	public void generateNewCurrentPiece() {
 		int x = (int)(Math.random() * 7) + 1;
-		//int x = 3;
+		//int x = 1;
 		switch(x) {
 		case 1:
 			currentPiece = new ITetrimino(board.getBoard());
@@ -129,9 +129,8 @@ public class Game {
 	}
 	public void resetPiece() {
 		if(checkPlaced()) {
-			System.out.println("Here3");
-			generateNewCurrentPiece();
 			totalLinesCleared += board.clearLines();
+			generateNewCurrentPiece();
 		}
 	}
 	public boolean checkGameOver() {

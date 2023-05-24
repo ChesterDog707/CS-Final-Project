@@ -52,7 +52,6 @@ public class JTetrimino extends Tetrimino {
 			switch(orientation) {
 			case 1:
 				board[yPosition][xPosition] = num;
-				System.out.println("here4 " + num);
 				for(int i = xPosition; i < xPosition + 3; i++)
 					board[yPosition + 1][i] = num;
 				return true;
