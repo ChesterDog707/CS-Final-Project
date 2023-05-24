@@ -3,7 +3,7 @@ public class LTetrimino extends Tetrimino {
 
 	public LTetrimino(int[][] board) {
 		super(board);
-		xPosition = 3;
+		xPosition = 5;
 		yPosition = 0;
 		numberValue = 3;
 	}
@@ -49,7 +49,6 @@ public class LTetrimino extends Tetrimino {
 			num = numberValue;
 		else
 			num = 0;
-		if(checkPlacement(xPosition, yPosition, orientation)) {
 			switch(orientation) {
 			case 1:
 				board[yPosition][xPosition] = num;
@@ -75,7 +74,6 @@ public class LTetrimino extends Tetrimino {
 					board[i][xPosition + 1] = num;
 				}
 				return true;
-			}
 		}
 		return false;
 			

@@ -49,10 +49,10 @@ public class JTetrimino extends Tetrimino {
 			num = numberValue;
 		else
 			num = 0;
-		if(checkPlacement(xPosition, yPosition, orientation)) {
 			switch(orientation) {
 			case 1:
 				board[yPosition][xPosition] = num;
+				System.out.println("here4 " + num);
 				for(int i = xPosition; i < xPosition + 3; i++)
 					board[yPosition + 1][i] = num;
 				return true;
@@ -71,7 +71,6 @@ public class JTetrimino extends Tetrimino {
 				for(int i = yPosition; i > yPosition - 3; i--)
 					board[i][xPosition + 1] = num;
 				return true;
-			}
 		}
 		return false;
 	}

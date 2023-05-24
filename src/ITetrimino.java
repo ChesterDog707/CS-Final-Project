@@ -54,7 +54,6 @@ public class ITetrimino extends Tetrimino {
 			num = numberValue;
 		else
 			num = 0;
-		if(checkPlacement(xPosition, yPosition, orientation)) {
 			switch(orientation) {
 			case 1:
 			case 3:
@@ -66,7 +65,6 @@ public class ITetrimino extends Tetrimino {
 				for(int i = yPosition; i > yPosition - 4; i--)
 					board[i][xPosition] = num;
 				return true;
-			}
 		}
 		return false;
 	}
@@ -93,6 +91,8 @@ public class ITetrimino extends Tetrimino {
 		case 3:
 			for(int i = changeX; i < changeX + 4; i++) {
 				if(i >= board[0].length)
+					return false;
+				if(changeY >= board.length)
 					return false;
 				if(board[changeY][i] != 0)
 					return false;

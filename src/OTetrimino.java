@@ -20,15 +20,13 @@ public class OTetrimino extends Tetrimino{
 		int num;
 		if(place)
 			num = numberValue;
-		else 
+		else
 			num=0;
-		if(checkPlacement(xPosition, yPosition, orientation)) {
-			board[yPosition][xPosition] = num;  
-			board[yPosition][xPosition+1] = num;
-			board[yPosition+1][xPosition] = num;
-			board[yPosition+1][xPosition+1] = num;
-			return true;
-		}
+			
+		board[yPosition][xPosition] = num;  
+		board[yPosition][xPosition+1] = num;
+		board[yPosition+1][xPosition] = num;
+		board[yPosition+1][xPosition+1] = num;
 		
 		
 		

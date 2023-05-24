@@ -58,8 +58,6 @@ public class Board {
 				deleteRow(r);
 			}
 		}
-		
-		System.out.println(Arrays.deepToString(board));
 		return lineCount;
 	}
 	private void deleteRow(int r) {

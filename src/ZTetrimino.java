@@ -52,7 +52,6 @@ public class ZTetrimino extends Tetrimino{
 			num = numberValue;
 		else 
 			num=0;
-		if(checkPlacement(xPosition, yPosition, orientation)) {
 			switch(orientation) {
 			
 			
@@ -72,7 +71,6 @@ public class ZTetrimino extends Tetrimino{
 				board[yPosition+1][xPosition-1] = num;
 				board[yPosition+2][xPosition-1] = num;
 				return true;
-			}
 		
 		
 		}

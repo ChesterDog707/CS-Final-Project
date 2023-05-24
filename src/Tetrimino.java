@@ -31,23 +31,11 @@ public abstract class Tetrimino {
 	public abstract boolean checkTop();
 	public boolean move(int changeX, int changeY) {
 		// TODO Auto-generated method stub
-		System.out.println("here2");
 		placeOrDelete(false);
-		for(int[] r : board) {
-			for(int c : r) {
-				System.out.print(c + "  ");
-			}
-			System.out.println();
-		}
-		System.out.println();
-		System.out.println(checkPlacement(xPosition + changeX, yPosition + changeY, orientation));
 		if(checkPlacement(xPosition + changeX, yPosition + changeY, orientation)) {
-			System.out.println("here3");
-			placeOrDelete(false);
 			xPosition += changeX;
 			yPosition += changeY;
 			placeOrDelete(true);
-			System.out.println("MOVING THE PIECE DOWN");  //im tryna see when this is triggered
 			return true;
 		
 		}

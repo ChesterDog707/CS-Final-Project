@@ -52,10 +52,7 @@ public class STetrimino extends Tetrimino {
 			num = numberValue;
 		else 
 			num=0;
-		if(num > 0 && checkPlacement(xPosition, yPosition, orientation)) 
-			return place(num);
-		else
-			return place(0);
+		return place(num);
 				
 	}
 	private boolean place(int num) {

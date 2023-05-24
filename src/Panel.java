@@ -18,10 +18,9 @@ public class Panel extends JPanel{
 	public Panel(Game game) {
 		this.game = game;
 		updateTick();
-		System.out.println("tick"+tick);
 		Timer timer = new Timer((int)tick, new Timey());
 		timer.start();
-		KeyListener keyboard = new key();
+		addKeyListener(new key());
 	}
 	
 	public Board getBoard() {
@@ -50,7 +49,8 @@ public class Panel extends JPanel{
 	private class Timey implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if(!game.checkGameOver()) {
-				game.getCurrentPiece().move(0, -1);
+				game.getCurrentPiece().move(0, 1);
+				game.resetPiece();
 				//game.getBoard().viewBoard();
 				//game.resetPiece();
 				
