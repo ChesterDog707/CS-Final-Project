@@ -86,12 +86,21 @@ public class ZTetrimino extends Tetrimino{
 
 	@Override
 	protected boolean checkPlacement(int changeX, int changeY, int changeOrientation) {
-		switch(orientation) {
+		switch(changeOrientation) {
 		
 			
 				
 			case 3:
 			case 1:
+				if(changeX+2>=board[0].length)   //checking too far right
+					return false;
+				if(changeX<0)   //checking left
+					return false;
+				if(changeY<0)  //up
+					return false;
+				if(changeY+1>=board.length)
+					return false;        //down
+				
 				if(board[changeY][changeX]>0)
 					return false;
 				if(board[changeY][changeX+1]>0)
@@ -100,19 +109,19 @@ public class ZTetrimino extends Tetrimino{
 					return false;
 				if(board[changeY+1][changeX+2]>0)
 					return false;     //checking if there is a block in that place
-				
-				if(changeX+2>=board[0].length)   //checking too far right
+			
+				break;
+			case 4:
+			case 2:
+				if(changeX>=board[0].length)   //checking too far right
 					return false;
-				if(changeX<0)   //checking left
+				if(changeX-1<0)   //checking left
 					return false;
 				if(changeY<0)  //up
 					return false;
-				if(changeY>=board.length)
+				if(changeY+2>=board.length)
 					return false;        //down
-				break;
-		
-			case 4:
-			case 2:
+				
 				if(board[changeY][changeX]>0)
 					return false;
 				if(board[changeY+1][changeX]>0)
@@ -122,14 +131,6 @@ public class ZTetrimino extends Tetrimino{
 				if(board[changeY+2][changeX-1]>0)
 					return false;      //checking if there are already blocks in this spot
 				
-				if(changeX>=board[0].length)   //checking too far right
-					return false;
-				if(changeX-1<0)   //checking left
-					return false;
-				if(changeY<0)  //up
-					return false;
-				if(changeY+2>=board.length)
-					return false;        //down
 				break;
 		
 			}

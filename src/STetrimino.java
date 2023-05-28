@@ -60,7 +60,6 @@ public class STetrimino extends Tetrimino {
 		
 		case 3:
 		case 1:  //filling in the blocks on the 2d array with the "num"; making them into a different color
-			System.out.println("here " + num);
 			board[yPosition][xPosition] = num;  
 			board[yPosition][xPosition+1] = num;
 			board[yPosition-1][xPosition+1] = num;
@@ -69,7 +68,6 @@ public class STetrimino extends Tetrimino {
 		
 		case 4:
 		case 2:
-			System.out.println("here " + num);
 			board[yPosition][xPosition] = num;
 			board[yPosition+1][xPosition] = num;
 			board[yPosition+1][xPosition+1] = num;
@@ -89,7 +87,7 @@ public class STetrimino extends Tetrimino {
 	@Override
 	protected boolean checkPlacement(int changeX, int changeY, int changeOrientation) {
 		// TODO Auto-generated method stub
-		switch(orientation) {
+		switch(changeOrientation) {
 		
 		
 		

@@ -11,6 +11,7 @@ public class TTetrimino extends Tetrimino {
 	@Override
 	public void rotate() {
 		// TODO Auto-generated method stub
+		placeOrDelete(false);
 		switch(orientation) {
 		case 1:
 			if(checkPlacement(xPosition + 1, yPosition - 1, 2)) {
@@ -41,6 +42,7 @@ public class TTetrimino extends Tetrimino {
 			}
 			break;
 		}
+		placeOrDelete(true);
 		return;
 	}
 
@@ -89,52 +91,56 @@ public class TTetrimino extends Tetrimino {
 	@Override
 	protected boolean checkPlacement(int changeX, int changeY, int changeOrientation) {
 		// TODO Auto-generated method stub
-		switch(orientation) {
+		switch(changeOrientation) {
 		case 1:
+			if(changeX < 0 || changeY >= board.length)
+				return false;
 			for(int i = changeX; i < changeX + 3; i++) {
 				if(i >= board[0].length || changeY >= board.length) 
 					return false;
 				if(board[changeY][i] != 0)
 					return false;
 			}
-			if(changeX + 1 >= board[0].length || changeY - 1 < 0)
-				return false;
 			if(board[changeY - 1][changeX + 1] != 0) 
 				return false;
 			break;
 		case 2:
-			for(int i = changeY; i < changeY + 3; i++) {
-				if(i >= board.length)
-					return false;
-				if(board[i][changeX] != 0)
-					return false;
+			if(changeX + 1 >= board[0].length) {
+				return false;
 			}
-			if(changeX + 1 >= board[0].length)
+			for(int i = changeY; i < changeY + 3; i++) {
+				if(i >= board.length) {
+					return false;
+				}
+				if(board[i][changeX] != 0) {
+					return false;
+				}
+			}
+			if(board[changeY + 1][changeX + 1] != 0) {
 				return false;
-			if(board[changeY + 1][changeX + 1] != 0)
-				return false;
+			}
 			break;
 		case 3:
+			if(changeY + 1 >= board.length || changeX >= board[0].length)
+				return false;
 			for(int i = changeX; i > changeX - 3; i--) {
 				if(i < 0)
 					return false;
 				if(board[changeY][i] != 0)
 					return false;
 			}
-			if(changeY + 1 >= board.length)
-				return false;
 			if(board[changeY + 1][changeX - 1] != 0)
 				return false;
 			break;
 		case 4:
+			if(changeX - 1 < 0 || changeY > board.length)
+				return false;
 			for(int i = changeY; i > changeY - 3; i--) {
 				if(i < 0)
 					return false;
 				if(board[i][changeX] != 0)
 					return false;
 			}
-			if(changeX - 1 < 0)
-				return false;
 			if(board[changeY - 1][changeX - 1] != 0)
 				return false;
 			break;

@@ -16,6 +16,7 @@ public class Game {
 	private int score;
 	private int level;
 	private int totalLinesCleared;
+	private boolean gameOver = false;
 	
 	public Game() {
 		currentPiece = null;
@@ -88,7 +89,7 @@ public class Game {
 	
 	public void generateNewCurrentPiece() {
 		int x = (int)(Math.random() * 7) + 1;
-		//int x = 1;
+		//int x = 3;
 		switch(x) {
 		case 1:
 			currentPiece = new ITetrimino(board.getBoard());
@@ -112,13 +113,11 @@ public class Game {
 			currentPiece = new ZTetrimino(board.getBoard());
 			break;
 		}
-		currentPiece.placeOrDelete(true);
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(!currentPiece.checkPlacement(currentPiece.getXPosition(), currentPiece.getYPosition(), currentPiece.getOrientation())) {
+			gameOver = true;
+			return;
 		}
+		currentPiece.placeOrDelete(true);
 	}
 	public boolean checkPlaced() {
 		boolean t;
@@ -134,11 +133,7 @@ public class Game {
 		}
 	}
 	public boolean checkGameOver() {
-//		for (int i = 0; i < 10; i++) 
-//			if(board.getBoard()[0][i] != 0 && !currentPiece.checkTop())
-//				return true;
-		// TODO make method to check piece placed
-		return false;
+		return gameOver;
 	}
 	public void updateScore() {
 		// TODO Auto-generated method stub

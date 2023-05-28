@@ -90,10 +90,11 @@ public class LTetrimino extends Tetrimino {
 	@Override
 	protected boolean checkPlacement(int changeX, int changeY, int changeOrientation) {
 		// TODO Auto-generated method stub
-		switch(orientation) {
+		switch(changeOrientation) {
 		case 1:
-			if(changeX >= board[0].length || changeY <= 0 || changeY + 1 >= board.length)
+			if(changeX >= board[0].length || changeY < 0 || changeY + 1 >= board.length) {
 				return false;
+			}
 			if(board[changeY][changeX] != 0)
 				return false;
 			for(int i = changeX; i > changeX - 3; i--) {
@@ -104,15 +105,19 @@ public class LTetrimino extends Tetrimino {
 			}
 			break;
 		case 2:
-			if(changeY >= board.length || changeX < board[0].length || changeX - 1 < 0)
+			if(changeY >= board.length || changeX >= board[0].length || changeX - 1 < 0) {
 				return false;
-			if(board[changeY][changeX] != 0)
+			}
+			if(board[changeY][changeX] != 0) {
 				return false;
+			}
 			for(int i = changeY; i > changeY - 3; i--) {
-				if(i < board.length)
+				if(i >= board.length) {
 					return false;
-				if(board[i][changeX - 1] != 0)
+				}
+				if(board[i][changeX - 1] != 0) {
 					return false;
+				}
 			}
 			break;
 		case 3:

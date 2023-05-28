@@ -50,8 +50,8 @@ public class Panel extends JPanel{
 	private class Timey implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if(!game.checkGameOver()) {
-				game.getCurrentPiece().move(0, 1);
 				game.resetPiece();
+				game.getCurrentPiece().move(0, 1);
 				if(game.getTotalLinesCleared() % 10 > game.getLevel())
 					game.setLevel(game.getLevel() + 1);
 				game.updateScore();
