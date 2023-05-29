@@ -105,7 +105,7 @@ public class TTetrimino extends Tetrimino {
 				return false;
 			break;
 		case 2:
-			if(changeX + 1 >= board[0].length) {
+			if(changeX + 1 >= board[0].length || changeX < 0) {
 				return false;
 			}
 			for(int i = changeY; i < changeY + 3; i++) {
@@ -133,10 +133,10 @@ public class TTetrimino extends Tetrimino {
 				return false;
 			break;
 		case 4:
-			if(changeX - 1 < 0 || changeY > board.length)
+			if(changeX - 1 < 0 || changeY > board.length || changeX >= board[0].length)
 				return false;
 			for(int i = changeY; i > changeY - 3; i--) {
-				if(i < 0)
+				if(i < 0 || i >= board.length)
 					return false;
 				if(board[i][changeX] != 0)
 					return false;

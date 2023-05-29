@@ -78,7 +78,7 @@ public class JTetrimino extends Tetrimino {
 	public void resetPosition() {
 		// TODO Auto-generated method stub
 		xPosition = 3;
-		yPosition = 1;
+		yPosition = 0;
 		orientation = 1;
 	}
 

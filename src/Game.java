@@ -11,6 +11,7 @@ import javax.swing.Timer;
 public class Game {
 
 	private Tetrimino currentPiece;
+	private Tetrimino nextPiece;
 	private Tetrimino heldPiece;
 	private Board board;
 	private int score;
@@ -22,6 +23,30 @@ public class Game {
 		currentPiece = null;
 		heldPiece = null;
 		board = new Board();
+		int y = (int)(Math.random() * 7) + 1;
+		switch(y) {
+		case 1:
+			nextPiece = new ITetrimino(board.getBoard());
+			break;
+		case 2:
+			nextPiece = new JTetrimino(board.getBoard());
+			break;
+		case 3:
+			nextPiece = new LTetrimino(board.getBoard());
+			break;
+		case 4:
+			nextPiece = new OTetrimino(board.getBoard());
+			break;
+		case 5:
+			nextPiece = new STetrimino(board.getBoard());
+			break;
+		case 6:
+			nextPiece = new TTetrimino(board.getBoard());
+			break;
+		case 7:
+			nextPiece = new ZTetrimino(board.getBoard());
+			break;
+		}
 		score = 0;
 		level = 0;
 		generateNewCurrentPiece();
@@ -69,7 +94,17 @@ public class Game {
 	public void setTotalLinesCleared(int totalLinesCleared) {
 		this.totalLinesCleared = totalLinesCleared;
 	}
+	
+	public Tetrimino getNextPiece() {
+		return nextPiece;
+	}
+
+	public void setNextPiece(Tetrimino nextPiece) {
+		this.nextPiece = nextPiece;
+	}
+
 	public void holdPiece() {
+		currentPiece.placeOrDelete(false);
 		if(heldPiece == null) {
 			heldPiece = currentPiece;
 			currentPiece = null;
@@ -85,32 +120,35 @@ public class Game {
 		Tetrimino temp = currentPiece;
 		currentPiece = heldPiece;
 		heldPiece = temp;
+		currentPiece.resetPosition();
+		heldPiece.resetPosition();
 	}
 	
 	public void generateNewCurrentPiece() {
-		int x = (int)(Math.random() * 7) + 1;
-		//int x = 3;
-		switch(x) {
+		currentPiece = nextPiece;
+		int y = (int)(Math.random() * 7) + 1;
+		//int y = 1;
+		switch(y) {
 		case 1:
-			currentPiece = new ITetrimino(board.getBoard());
+			nextPiece = new ITetrimino(board.getBoard());
 			break;
 		case 2:
-			currentPiece = new JTetrimino(board.getBoard());
+			nextPiece = new JTetrimino(board.getBoard());
 			break;
 		case 3:
-			currentPiece = new LTetrimino(board.getBoard());
+			nextPiece = new LTetrimino(board.getBoard());
 			break;
 		case 4:
-			currentPiece = new OTetrimino(board.getBoard());
+			nextPiece = new OTetrimino(board.getBoard());
 			break;
 		case 5:
-			currentPiece = new STetrimino(board.getBoard());
+			nextPiece = new STetrimino(board.getBoard());
 			break;
 		case 6:
-			currentPiece = new TTetrimino(board.getBoard());
+			nextPiece = new TTetrimino(board.getBoard());
 			break;
 		case 7:
-			currentPiece = new ZTetrimino(board.getBoard());
+			nextPiece = new ZTetrimino(board.getBoard());
 			break;
 		}
 		if(!currentPiece.checkPlacement(currentPiece.getXPosition(), currentPiece.getYPosition(), currentPiece.getOrientation())) {
@@ -128,9 +166,30 @@ public class Game {
 	}
 	public void resetPiece() {
 		if(checkPlaced()) {
-			totalLinesCleared += board.clearLines();
+			int x = board.clearLines();
+			switch(x) {
+			case 0:
+				break;
+			case 1:
+				score = 40 * (level + 1);
+				break;
+			case 2:
+				score = 40 * (level + 1);
+				break;
+			case 3:
+				score = 300 * (level + 1);
+				break;
+			case 4:
+				score = 1200 * (level + 1);
+				break;
+			}
+			totalLinesCleared += x;
+			updateLevel();
 			generateNewCurrentPiece();
 		}
+	}
+	public void updateLevel() {
+		level = totalLinesCleared / 10;
 	}
 	public boolean checkGameOver() {
 		return gameOver;

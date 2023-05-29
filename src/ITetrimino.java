@@ -101,7 +101,7 @@ public class ITetrimino extends Tetrimino {
 		case 2:
 		case 4:
 			for(int i = changeY; i > changeY - 4; i--) {
-				if(i < 0 || i >= board.length)
+				if(i < 0 || i >= board.length || changeX >= board[0].length || changeX < 0)
 					return false;
 				if(board[i][changeX] != 0)
 					return false;

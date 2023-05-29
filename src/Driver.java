@@ -9,7 +9,7 @@ public class Driver {
 		Panel window = new Panel(game);
 		//Board board = window.getBoard();
 		JFrame page = new JFrame();
-		page.setSize(300, 700);
+		page.setSize(620, 880);
 		page.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		page.setBackground(Color.WHITE);
 		

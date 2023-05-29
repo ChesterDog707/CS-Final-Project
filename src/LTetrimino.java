@@ -82,7 +82,7 @@ public class LTetrimino extends Tetrimino {
 	@Override
 	public void resetPosition() {
 		// TODO Auto-generated method stub
-		xPosition = 3;
+		xPosition = 5;
 		yPosition = 0;
 		orientation = 1;
 	}
@@ -126,7 +126,7 @@ public class LTetrimino extends Tetrimino {
 			if(board[changeY][changeX] !=0)
 				return false;
 			for(int i = changeX; i < changeX + 3; i++) {
-				if(changeX >= board[0].length)
+				if(i >= board[0].length)
 					return false;
 				if(board[changeY - 1][i] != 0) 
 					return false;

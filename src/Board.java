@@ -27,10 +27,10 @@ public class Board {
 			for(int c = 0; c < board[0].length; c ++) {
 				
 				//System.out.print(board[r][c] + "  ");
-				g.setColor(Color.black);
-				g.drawRect(c * 20, r * 20, 20, 20);
+				g.setColor(new Color(212, 212, 212));
+				g.drawRect(c * 40, (r * 40) + 40, 40, 40);
 				g.setColor(colors[board[r][c]]);
-				g.fillRect(c * 20 + 1, r * 20 + 1, 19, 19);
+				g.fillRect(c * 40 + 1, (r * 40 + 1) + 40, 39, 39);
 			}
 		}
 	}

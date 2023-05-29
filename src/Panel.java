@@ -1,20 +1,41 @@
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Arrays;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Panel extends JPanel{
 	Game game;
 	double tick;
-	private static final double[] tickAtLevel  = {798.7, 715.5, 632.3, 549.1, 465.9, 382.7, 299.5, 216.3, 133.1, 99.8, 83.2, 83.2, 83.2, 66.6, 66.6, 66.6, 49.9, 49.9, 49.9, 33.3, 33.3, 33.3, 33.3, 33.3, 33.3, 33.3, 33.3, 33.3, 33.3, 16.4};
-	
+	private static final double[] tickAtLevel  = {798.7, 715.5, 632.3, 549.1, 465.9, 382.7, 299.5, 216.3, 133.1, 99.8, 83.2, 83.2, 83.2, 66.6, 66.6, 66.6, 49.9, 49.9, 49.9, 33.3, 33.3, 33.3, 33.3, 33.3, 33.3, 33.3, 33.3, 33.3, 33.3, 16.4}; 
+	BufferedImage I = null;
+	BufferedImage J = null;
+	BufferedImage L = null;
+	BufferedImage O = null;
+	BufferedImage S = null;
+	BufferedImage T = null;
+	BufferedImage Z = null;
+	{try{I = ImageIO.read(new File("Tetriminos/ITetrimino.png"));} catch(IOException e) {}}
+	{try{J = ImageIO.read(new File("Tetriminos/JTetrimino.png"));} catch(IOException e) {}}
+	{try{L = ImageIO.read(new File("Tetriminos/LTetrimino.png"));} catch(IOException e) {}}
+	{try{O = ImageIO.read(new File("Tetriminos/OTetrimino.png"));} catch(IOException e) {}}
+	{try{S = ImageIO.read(new File("Tetriminos/STetrimino.png"));} catch(IOException e) {}}
+	{try{T = ImageIO.read(new File("Tetriminos/TTetrimino.png"));} catch(IOException e) {}}
+	{try{Z = ImageIO.read(new File("Tetriminos/ZTetrimino.png"));} catch(IOException e) {}}
 	public Panel(Game game) {
 		this.game = game;
 		updateTick();
@@ -35,10 +56,93 @@ public class Panel extends JPanel{
 	}
 
 	public void paintComponent(Graphics g) {
-		super.paintComponent(g);//forgot to add this
-		//System.out.println(Arrays.deepToString(game.getBoard().getBoard()));
-		
+		super.paintComponent(g);
+		Graphics2D g2 = (Graphics2D)g;
 		game.getBoard().drawBoard(g);
+		g.setColor(Color.black);
+		g2.setColor(Color.black);
+		g2.setFont(new Font(g2.getFont().getFontName(), Font.PLAIN, 30));
+		g2.drawString("SCORE: " + game.getScore(), 0, 30);
+		g2.drawString("LEVEL: " + game.getLevel(), 275, 30);
+		g2.drawString("NEXT:", 425, 100);
+		g2.drawString("HELD:", 425, 350);
+		g.drawRect(425, 115, 161, 163);
+		g.drawRect(425, 365, 161, 163);
+		g.setColor(Color.white);
+		g.fillRect(426, 116, 160, 162);
+		g.fillRect(426, 366, 160, 162);
+		drawHeldPiece(g2);
+		drawNextPiece(g2);
+	}
+	private int pieceToNum(Tetrimino t) {
+		if(t instanceof ITetrimino)
+			return 1;
+		else if(t instanceof JTetrimino) 
+			return 2;
+		else if(t instanceof LTetrimino)
+			return 3;
+		else if(t instanceof OTetrimino)
+			return 4;
+		else if(t instanceof STetrimino)
+			return 5;
+		else if(t instanceof TTetrimino)
+			return 6;
+		else if(t instanceof ZTetrimino)
+			return 7;
+		else
+			return 0;
+	}
+	private void drawHeldPiece(Graphics2D g2) {
+		int x = pieceToNum(game.getHeldPiece());
+		switch(x) {
+		case 1:
+			g2.drawImage(I, null, 426, 425);
+			break;
+		case 2:
+			g2.drawImage(J, null, 446, 405);
+			break;
+		case 3:
+			g2.drawImage(L, null, 446, 405);
+			break;
+		case 4:
+			g2.drawImage(O, null, 466, 405);
+			break;
+		case 5:
+			g2.drawImage(S, null, 445, 405);
+			break;
+		case 6:
+			g2.drawImage(T, null, 445, 405);
+			break;
+		case 7:
+			g2.drawImage(Z, null, 445, 405);
+			break;
+		}
+	}
+	private void drawNextPiece(Graphics2D g2) {
+		int x = pieceToNum(game.getNextPiece());
+		switch(x) {
+		case 1:
+			g2.drawImage(I, null, 426, 175);
+			break;
+		case 2:
+			g2.drawImage(J, null, 446, 155);
+			break;
+		case 3:
+			g2.drawImage(L, null, 446, 155);
+			break;
+		case 4:
+			g2.drawImage(O, null, 466, 155);
+			break;
+		case 5:
+			g2.drawImage(S, null, 445, 155);
+			break;
+		case 6:
+			g2.drawImage(T, null, 445, 155);
+			break;
+		case 7:
+			g2.drawImage(Z, null, 445, 155);
+			break;
+		}
 	}
 	public void updateTick() {
 		if(game.getLevel() < 30)
@@ -52,8 +156,7 @@ public class Panel extends JPanel{
 			if(!game.checkGameOver()) {
 				game.resetPiece();
 				game.getCurrentPiece().move(0, 1);
-				if(game.getTotalLinesCleared() % 10 > game.getLevel())
-					game.setLevel(game.getLevel() + 1);
+				updateTick();
 				game.updateScore();
 				repaint();
 			}
@@ -71,7 +174,7 @@ public class Panel extends JPanel{
 		public void keyPressed(KeyEvent e) {
 			// TODO Auto-generated method stub
 			int type = e.getKeyCode();
-			if(type == KeyEvent.VK_H)
+			if(type == KeyEvent.VK_SPACE)
 				game.holdPiece();
 			else if(type == KeyEvent.VK_UP)
 				game.getCurrentPiece().rotate();
@@ -79,6 +182,15 @@ public class Panel extends JPanel{
 				game.getCurrentPiece().move(-1, 0);
 			else if(type == KeyEvent.VK_RIGHT)
 				game.getCurrentPiece().move(1,  0);
+			else if(type == KeyEvent.VK_DOWN) {
+				int i = game.getCurrentPiece().getYPosition() + 1;
+				game.getCurrentPiece().placeOrDelete(false);
+				while(game.getCurrentPiece().checkPlacement(game.getCurrentPiece().getXPosition(), i, game.getCurrentPiece().getOrientation())) {
+					game.getCurrentPiece().move(0, 1);
+					i++;
+				}
+				game.getCurrentPiece().placeOrDelete(true);
+			}
 			repaint();
 		}
 
