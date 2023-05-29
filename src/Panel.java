@@ -36,9 +36,11 @@ public class Panel extends JPanel{
 	{try{S = ImageIO.read(new File("Tetriminos/STetrimino.png"));} catch(IOException e) {}}
 	{try{T = ImageIO.read(new File("Tetriminos/TTetrimino.png"));} catch(IOException e) {}}
 	{try{Z = ImageIO.read(new File("Tetriminos/ZTetrimino.png"));} catch(IOException e) {}}
+	int gameState;
 	public Panel(Game game) {
 		this.game = game;
 		updateTick();
+		gameState = 2;
 		Timer timer = new Timer((int)tick, new Timey());
 		timer.start();
 		addKeyListener(new key());
@@ -58,21 +60,47 @@ public class Panel extends JPanel{
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;
-		game.getBoard().drawBoard(g);
-		g.setColor(Color.black);
-		g2.setColor(Color.black);
-		g2.setFont(new Font(g2.getFont().getFontName(), Font.PLAIN, 30));
-		g2.drawString("SCORE: " + game.getScore(), 0, 30);
-		g2.drawString("LEVEL: " + game.getLevel(), 275, 30);
-		g2.drawString("NEXT:", 425, 100);
-		g2.drawString("HELD:", 425, 350);
-		g.drawRect(425, 115, 161, 163);
-		g.drawRect(425, 365, 161, 163);
-		g.setColor(Color.white);
-		g.fillRect(426, 116, 160, 162);
-		g.fillRect(426, 366, 160, 162);
-		drawHeldPiece(g2);
-		drawNextPiece(g2);
+		if(gameState == 1) {
+			g.drawRect(0, 0, 620, 880);
+		}
+		if(gameState == 2) {
+			game.getBoard().drawBoard(g);
+			g.setColor(Color.black);
+			g2.setColor(Color.black);
+			g2.setFont(new Font(g2.getFont().getFontName(), Font.PLAIN, 30));
+			g2.drawString("SCORE: " + game.getScore(), 0, 30);
+			g2.drawString("LEVEL: " + game.getLevel(), 275, 30);
+			g2.drawString("NEXT:", 425, 100);
+			g2.drawString("HELD:", 425, 350);
+			g.drawRect(425, 115, 161, 163);
+			g.drawRect(425, 365, 161, 163);
+			g.setColor(Color.white);
+			g.fillRect(426, 116, 160, 162);
+			g.fillRect(426, 366, 160, 162);
+			drawHeldPiece(g2);
+			drawNextPiece(g2);
+		}else if(gameState == 3) {
+			game.getBoard().drawBoard(g);
+			g.setColor(Color.black);
+			g2.setColor(Color.black);
+			g2.setFont(new Font(g2.getFont().getFontName(), Font.PLAIN, 30));
+			g2.drawString("SCORE: " + game.getScore(), 0, 30);
+			g2.drawString("LEVEL: " + game.getLevel(), 275, 30);
+			g2.drawString("NEXT:", 425, 100);
+			g2.drawString("HELD:", 425, 350);
+			g.drawRect(425, 115, 161, 163);
+			g.drawRect(425, 365, 161, 163);
+			g.setColor(Color.white);
+			g.fillRect(426, 116, 160, 162);
+			g.fillRect(426, 366, 160, 162);
+			drawHeldPiece(g2);
+			drawNextPiece(g2);
+			g2.setFont(new Font(g2.getFont().getFontName(), Font.PLAIN, 60));
+			g2.setColor(new Color(122, 0, 0));
+			g2.drawString("GAME OVER", 20, 400);
+			g2.setFont(new Font(g2.getFont().getFontName(), Font.PLAIN, 20));
+			g2.drawString("Press R to restart", 120, 420);
+		}
 	}
 	private int pieceToNum(Tetrimino t) {
 		if(t instanceof ITetrimino)
@@ -155,9 +183,13 @@ public class Panel extends JPanel{
 		public void actionPerformed(ActionEvent e) {
 			if(!game.checkGameOver()) {
 				game.resetPiece();
+				if(game.checkGameOver())
+					return;
 				game.getCurrentPiece().move(0, 1);
 				updateTick();
-				game.updateScore();
+				repaint();
+			}else {
+				gameState = 3;
 				repaint();
 			}
 		}
@@ -174,22 +206,39 @@ public class Panel extends JPanel{
 		public void keyPressed(KeyEvent e) {
 			// TODO Auto-generated method stub
 			int type = e.getKeyCode();
-			if(type == KeyEvent.VK_SPACE)
-				game.holdPiece();
-			else if(type == KeyEvent.VK_UP)
-				game.getCurrentPiece().rotate();
-			else if(type == KeyEvent.VK_LEFT) 
-				game.getCurrentPiece().move(-1, 0);
-			else if(type == KeyEvent.VK_RIGHT)
-				game.getCurrentPiece().move(1,  0);
-			else if(type == KeyEvent.VK_DOWN) {
-				int i = game.getCurrentPiece().getYPosition() + 1;
-				game.getCurrentPiece().placeOrDelete(false);
-				while(game.getCurrentPiece().checkPlacement(game.getCurrentPiece().getXPosition(), i, game.getCurrentPiece().getOrientation())) {
-					game.getCurrentPiece().move(0, 1);
-					i++;
+			if(gameState == 1) {
+				gameState = 2;
+				repaint();
+			}
+			if(type == KeyEvent.VK_SPACE) {
+				if(gameState == 2)
+					game.holdPiece();
+			}else if(type == KeyEvent.VK_UP) {
+				if(gameState == 2)
+					game.getCurrentPiece().rotate(); 
+			}
+			else if(type == KeyEvent.VK_LEFT) {
+				if(gameState == 2)
+					game.getCurrentPiece().move(-1, 0);
+			}else if(type == KeyEvent.VK_RIGHT) {
+				if(gameState == 2)
+					game.getCurrentPiece().move(1,  0);
+			}else if(type == KeyEvent.VK_DOWN) {
+				if(gameState == 2) {
+					int i = game.getCurrentPiece().getYPosition() + 1;
+					game.getCurrentPiece().placeOrDelete(false);
+					while(game.getCurrentPiece().checkPlacement(game.getCurrentPiece().getXPosition(), i, game.getCurrentPiece().getOrientation())) {
+						game.getCurrentPiece().move(0, 1);
+						i++;
+					}
+					game.getCurrentPiece().placeOrDelete(true);
 				}
-				game.getCurrentPiece().placeOrDelete(true);
+			}else if(type == KeyEvent.VK_R) {
+				if(gameState == 3) {
+					game = new Game();
+					gameState = 2;
+					repaint();
+				}
 			}
 			repaint();
 		}

@@ -152,10 +152,11 @@ public class Game {
 			break;
 		}
 		if(!currentPiece.checkPlacement(currentPiece.getXPosition(), currentPiece.getYPosition(), currentPiece.getOrientation())) {
+			nextPiece = null;
 			gameOver = true;
 			return;
-		}
-		currentPiece.placeOrDelete(true);
+		} else
+			currentPiece.placeOrDelete(true);
 	}
 	public boolean checkPlaced() {
 		boolean t;
@@ -171,16 +172,16 @@ public class Game {
 			case 0:
 				break;
 			case 1:
-				score = 40 * (level + 1);
+				score += 40 * (level + 1);
 				break;
 			case 2:
-				score = 40 * (level + 1);
+				score += 40 * (level + 1);
 				break;
 			case 3:
-				score = 300 * (level + 1);
+				score += 300 * (level + 1);
 				break;
 			case 4:
-				score = 1200 * (level + 1);
+				score += 1200 * (level + 1);
 				break;
 			}
 			totalLinesCleared += x;
@@ -193,10 +194,6 @@ public class Game {
 	}
 	public boolean checkGameOver() {
 		return gameOver;
-	}
-	public void updateScore() {
-		// TODO Auto-generated method stub
-		
 	}
 	
 }
