@@ -72,7 +72,6 @@ public class Panel extends JPanel{
 		Graphics2D g2 = (Graphics2D)g;
 		if(gameState == 1) {
 			g.drawRect(0, 0, 620, 880);
-			System.out.println(Logo.getWidth());
 			g2.drawImage(Logo, 150, 20, 300, 210, null);
 			g2.setFont(new Font(g2.getFont().getFontName(), Font.BOLD, 30));
 			g2.setColor(Color.BLUE);
