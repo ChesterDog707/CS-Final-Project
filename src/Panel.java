@@ -8,8 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -29,18 +27,30 @@ public class Panel extends JPanel{
 	BufferedImage S = null;
 	BufferedImage T = null;
 	BufferedImage Z = null;
-	{try{I = ImageIO.read(new File("Tetriminos/ITetrimino.png"));} catch(IOException e) {}}
-	{try{J = ImageIO.read(new File("Tetriminos/JTetrimino.png"));} catch(IOException e) {}}
-	{try{L = ImageIO.read(new File("Tetriminos/LTetrimino.png"));} catch(IOException e) {}}
-	{try{O = ImageIO.read(new File("Tetriminos/OTetrimino.png"));} catch(IOException e) {}}
-	{try{S = ImageIO.read(new File("Tetriminos/STetrimino.png"));} catch(IOException e) {}}
-	{try{T = ImageIO.read(new File("Tetriminos/TTetrimino.png"));} catch(IOException e) {}}
-	{try{Z = ImageIO.read(new File("Tetriminos/ZTetrimino.png"));} catch(IOException e) {}}
+	BufferedImage Logo = null;
+	BufferedImage Up = null;
+	BufferedImage Down = null;
+	BufferedImage Left = null;
+	BufferedImage Right = null;
+	BufferedImage Space = null;
+	{try{I = ImageIO.read(new File("Assets/ITetrimino.png"));} catch(IOException e) {}}
+	{try{J = ImageIO.read(new File("Assets/JTetrimino.png"));} catch(IOException e) {}}
+	{try{L = ImageIO.read(new File("Assets/LTetrimino.png"));} catch(IOException e) {}}
+	{try{O = ImageIO.read(new File("Assets/OTetrimino.png"));} catch(IOException e) {}}
+	{try{S = ImageIO.read(new File("Assets/STetrimino.png"));} catch(IOException e) {}}
+	{try{T = ImageIO.read(new File("Assets/TTetrimino.png"));} catch(IOException e) {}}
+	{try{Z = ImageIO.read(new File("Assets/ZTetrimino.png"));} catch(IOException e) {}}
+	{try{Logo = ImageIO.read(new File("Assets/Tetris Logo.png"));} catch(IOException e) {}}
+	{try{Up = ImageIO.read(new File("Assets/Up Arrow.png"));} catch(IOException e) {}}
+	{try{Down = ImageIO.read(new File("Assets/Down Arrow.png"));} catch(IOException e) {}}
+	{try{Left = ImageIO.read(new File("Assets/Left Arrow.png"));} catch(IOException e) {}}
+	{try{Right = ImageIO.read(new File("Assets/Right Arrow.png"));} catch(IOException e) {}}
+	{try{Space = ImageIO.read(new File("Assets/Space Bar.png"));} catch(IOException e) {}}
 	int gameState;
 	public Panel(Game game) {
 		this.game = game;
 		updateTick();
-		gameState = 2;
+		gameState = 1;
 		Timer timer = new Timer((int)tick, new Timey());
 		timer.start();
 		addKeyListener(new key());
@@ -62,8 +72,24 @@ public class Panel extends JPanel{
 		Graphics2D g2 = (Graphics2D)g;
 		if(gameState == 1) {
 			g.drawRect(0, 0, 620, 880);
-		}
-		if(gameState == 2) {
+			System.out.println(Logo.getWidth());
+			g2.drawImage(Logo, 150, 20, 300, 210, null);
+			g2.setFont(new Font(g2.getFont().getFontName(), Font.BOLD, 30));
+			g2.setColor(Color.BLUE);
+			g2.drawString("CONTROLS:", 215, 285);
+			g2.drawImage(Left, 30, 340, 50, 50, null);
+			g2.drawImage(Right, 90, 340, 50, 50, null);
+			g2.drawImage(Up, 60, 440, 50, 50, null);
+			g2.drawImage(Down, 60, 540, 50, 50, null);
+			g2.drawImage(Space, 30, 640, 313, 50, null);
+			g2.setFont(new Font(g2.getFont().getFontName(), Font.PLAIN, 20));
+			g2.drawString("Move Tetrimino left or right", 150, 370);
+			g2.drawString("Rotate Tetrimino clockwise", 150, 470);
+			g2.drawString("Move Tetrimino down quickly", 150, 570);
+			g2.drawString("Hold Tetrimino", 383, 670);
+			g2.setFont(new Font(g2.getFont().getFontName(), Font.BOLD, 30));
+			g2.drawString("PRESS ANY KEY TO START", 85, 780);
+		}else if(gameState == 2) {
 			game.getBoard().drawBoard(g);
 			g.setColor(Color.black);
 			g2.setColor(Color.black);
@@ -181,14 +207,16 @@ public class Panel extends JPanel{
 	
 	private class Timey implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			if(!game.checkGameOver()) {
+			if(!game.checkGameOver() && gameState == 2) {
 				game.resetPiece();
 				if(game.checkGameOver())
 					return;
 				game.getCurrentPiece().move(0, 1);
 				updateTick();
 				repaint();
-			}else {
+			}else if(!game.checkGameOver())
+				repaint();
+			else {
 				gameState = 3;
 				repaint();
 			}
@@ -229,6 +257,7 @@ public class Panel extends JPanel{
 					game.getCurrentPiece().placeOrDelete(false);
 					while(game.getCurrentPiece().checkPlacement(game.getCurrentPiece().getXPosition(), i, game.getCurrentPiece().getOrientation())) {
 						game.getCurrentPiece().move(0, 1);
+						repaint();
 						i++;
 					}
 					game.getCurrentPiece().placeOrDelete(true);
@@ -245,39 +274,6 @@ public class Panel extends JPanel{
 
 		@Override
 		public void keyReleased(KeyEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-	}
-	private class click implements MouseListener {
-
-		@Override
-		public void mouseClicked(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseEntered(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseExited(MouseEvent e) {
 			// TODO Auto-generated method stub
 			
 		}
