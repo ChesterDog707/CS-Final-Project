@@ -223,7 +223,6 @@ public class Panel extends JPanel{
 				repaint();
 			else {
 				gameState = 3;
-				tick = tickAtLevel[0];
 				repaint();
 			}
 		}
@@ -276,6 +275,7 @@ public class Panel extends JPanel{
 				if(type == KeyEvent.VK_R) {
 					game = new Game();
 					gameState = 2;
+					timer.setDelay((int) tickAtLevel[0]);
 					repaint();
 				}
 			}
