@@ -19,6 +19,7 @@ import javax.swing.Timer;
 public class Panel extends JPanel{
 	Game game;
 	double tick;
+	Timer timer = new Timer((int)tick, new Timey());;
 	private static final double[] tickAtLevel  = {798.7, 715.5, 632.3, 549.1, 465.9, 382.7, 299.5, 216.3, 133.1, 99.8, 83.2, 83.2, 83.2, 66.6, 66.6, 66.6, 49.9, 49.9, 49.9, 33.3, 33.3, 33.3, 33.3, 33.3, 33.3, 33.3, 33.3, 33.3, 33.3, 16.4}; 
 	BufferedImage I = null;
 	BufferedImage J = null;
@@ -33,6 +34,7 @@ public class Panel extends JPanel{
 	BufferedImage Left = null;
 	BufferedImage Right = null;
 	BufferedImage Space = null;
+	BufferedImage Shift = null;
 	{try{I = ImageIO.read(new File("Assets/ITetrimino.png"));} catch(IOException e) {}}
 	{try{J = ImageIO.read(new File("Assets/JTetrimino.png"));} catch(IOException e) {}}
 	{try{L = ImageIO.read(new File("Assets/LTetrimino.png"));} catch(IOException e) {}}
@@ -46,12 +48,12 @@ public class Panel extends JPanel{
 	{try{Left = ImageIO.read(new File("Assets/Left Arrow.png"));} catch(IOException e) {}}
 	{try{Right = ImageIO.read(new File("Assets/Right Arrow.png"));} catch(IOException e) {}}
 	{try{Space = ImageIO.read(new File("Assets/Space Bar.png"));} catch(IOException e) {}}
+	{try{Shift = ImageIO.read(new File("Assets/Shift Key.png"));} catch(IOException e) {}}
 	int gameState;
 	public Panel(Game game) {
 		this.game = game;
 		updateTick();
 		gameState = 1;
-		Timer timer = new Timer((int)tick, new Timey());
 		timer.start();
 		addKeyListener(new key());
 		setFocusable(true);
@@ -75,17 +77,19 @@ public class Panel extends JPanel{
 			g2.drawImage(Logo, 150, 20, 300, 210, null);
 			g2.setFont(new Font(g2.getFont().getFontName(), Font.BOLD, 30));
 			g2.setColor(Color.BLUE);
-			g2.drawString("CONTROLS:", 215, 285);
+			g2.drawString("CONTROLS:", 215, 300);
 			g2.drawImage(Left, 30, 340, 50, 50, null);
 			g2.drawImage(Right, 90, 340, 50, 50, null);
-			g2.drawImage(Up, 60, 440, 50, 50, null);
-			g2.drawImage(Down, 60, 540, 50, 50, null);
-			g2.drawImage(Space, 30, 640, 313, 50, null);
+			g2.drawImage(Up, 60, 420, 50, 50, null);
+			g2.drawImage(Down, 60, 500, 50, 50, null);
+			g2.drawImage(Shift, 30, 580, 133, 50, null);
+			g2.drawImage(Space, 30, 660, 313, 50, null);
 			g2.setFont(new Font(g2.getFont().getFontName(), Font.PLAIN, 20));
-			g2.drawString("Move Tetrimino left or right", 150, 370);
-			g2.drawString("Rotate Tetrimino clockwise", 150, 470);
-			g2.drawString("Move Tetrimino down quickly", 150, 570);
-			g2.drawString("Hold Tetrimino", 383, 670);
+			g2.drawString("Move Tetrimino left or right", 180, 370);
+			g2.drawString("Rotate Tetrimino clockwise", 150, 450);
+			g2.drawString("Move Tetrimino downwards quickly", 150, 530);
+			g2.drawString("Instantly move Tetrimino to the bottom", 203, 610);
+			g2.drawString("Hold Tetrimino", 383, 690);
 			g2.setFont(new Font(g2.getFont().getFontName(), Font.BOLD, 30));
 			g2.drawString("PRESS ANY KEY TO START", 85, 780);
 		}else if(gameState == 2) {
@@ -202,6 +206,7 @@ public class Panel extends JPanel{
 			tick = tickAtLevel[game.getLevel()];
 		else
 			tick = tickAtLevel[29];
+		timer.setDelay((int) tick);
 	}
 	
 	private class Timey implements ActionListener {
@@ -210,8 +215,11 @@ public class Panel extends JPanel{
 				game.resetPiece();
 				if(game.checkGameOver())
 					return;
-				game.getCurrentPiece().move(0, 1);
-				updateTick();
+				if(game.getCurrentPiece().isFirstPlace())
+					game.getCurrentPiece().setFirstPlace(false);
+				else
+					game.getCurrentPiece().move(0, 1);
+				//updateTick();
 				repaint();
 			}else if(!game.checkGameOver())
 				repaint();
@@ -236,33 +244,37 @@ public class Panel extends JPanel{
 			if(gameState == 1) {
 				gameState = 2;
 				repaint();
-			}
-			if(type == KeyEvent.VK_SPACE) {
-				if(gameState == 2)
-					game.holdPiece();
-			}else if(type == KeyEvent.VK_UP) {
-				if(gameState == 2)
-					game.getCurrentPiece().rotate(); 
-			}
-			else if(type == KeyEvent.VK_LEFT) {
-				if(gameState == 2)
-					game.getCurrentPiece().move(-1, 0);
-			}else if(type == KeyEvent.VK_RIGHT) {
-				if(gameState == 2)
-					game.getCurrentPiece().move(1,  0);
-			}else if(type == KeyEvent.VK_DOWN) {
-				if(gameState == 2) {
-					int i = game.getCurrentPiece().getYPosition() + 1;
-					game.getCurrentPiece().placeOrDelete(false);
-					while(game.getCurrentPiece().checkPlacement(game.getCurrentPiece().getXPosition(), i, game.getCurrentPiece().getOrientation())) {
-						game.getCurrentPiece().move(0, 1);
-						repaint();
-						i++;
+			}else if(gameState == 2) {
+				if(type == KeyEvent.VK_SPACE) {
+					if(gameState == 2)
+						game.holdPiece();
+				}else if(type == KeyEvent.VK_UP) {
+					if(gameState == 2)
+						game.getCurrentPiece().rotate(); 
+				}else if(type == KeyEvent.VK_LEFT) {
+					if(gameState == 2)
+						game.getCurrentPiece().move(-1, 0);
+				}else if(type == KeyEvent.VK_RIGHT) {
+					if(gameState == 2)
+						game.getCurrentPiece().move(1,  0);
+				}else if(type == KeyEvent.VK_SHIFT) {
+					if(gameState == 2) {
+						int i = game.getCurrentPiece().getYPosition() + 1;
+						game.getCurrentPiece().placeOrDelete(false);
+						while(game.getCurrentPiece().checkPlacement(game.getCurrentPiece().getXPosition(), i, game.getCurrentPiece().getOrientation())) {
+							game.getCurrentPiece().move(0, 1);
+							game.getCurrentPiece().placeOrDelete(true);
+							repaint();
+							game.getCurrentPiece().placeOrDelete(false);
+							i++;
+						}
+						game.getCurrentPiece().placeOrDelete(true);
 					}
-					game.getCurrentPiece().placeOrDelete(true);
+				}else if(type == KeyEvent.VK_DOWN) {
+					timer.setDelay(30);
 				}
-			}else if(type == KeyEvent.VK_R) {
-				if(gameState == 3) {
+			}else if(gameState == 3) {
+				if(type == KeyEvent.VK_R) {
 					game = new Game();
 					gameState = 2;
 					repaint();
@@ -274,7 +286,10 @@ public class Panel extends JPanel{
 		@Override
 		public void keyReleased(KeyEvent e) {
 			// TODO Auto-generated method stub
-			
+			int type = e.getKeyCode();
+			if(type == KeyEvent.VK_DOWN && gameState == 2) {
+				timer.setDelay((int) (tickAtLevel[game.getLevel()]));
+			}
 		}
 		
 	}

@@ -155,8 +155,9 @@ public class Game {
 			nextPiece = null;
 			gameOver = true;
 			return;
-		} else
+		} else {
 			currentPiece.placeOrDelete(true);
+		}
 	}
 	public boolean checkPlaced() {
 		boolean t;

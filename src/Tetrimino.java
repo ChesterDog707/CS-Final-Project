@@ -1,4 +1,4 @@
-import java.util.Arrays;
+
 
 public abstract class Tetrimino {
 	protected int orientation;
@@ -7,10 +7,12 @@ public abstract class Tetrimino {
 	protected int numberValue;
 	protected boolean placed = false;
 	protected int[][] board;
+	protected boolean firstPlace;
 	
 	public Tetrimino(int[][] board) {
 		this.board = board;
 		orientation = 1;
+		firstPlace = true;
 	}
 	public int getXPosition() {
 		return xPosition;
@@ -23,6 +25,12 @@ public abstract class Tetrimino {
 	}
 	public int getNumberValue() {
 		return numberValue;
+	}
+	public boolean isFirstPlace() {
+		return firstPlace;
+	}
+	public void setFirstPlace(boolean firstPlace) {
+		this.firstPlace = firstPlace;
 	}
 	public abstract void rotate();
 	public abstract boolean placeOrDelete(boolean place);
